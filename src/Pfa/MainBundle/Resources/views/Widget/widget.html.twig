@@ -1,0 +1,82 @@
+<aside id="featured-properties">
+
+	{% if type is same as('Room') %}
+		{% set title = keyword ~ ' Rooms' %}
+	{% elseif type is same as('RoomSeeker') %}
+		{% set title = keyword ~ ' Room Seekers' %}
+	{% elseif type is same as('WholeProperty') %}
+		{% set title = keyword ~ ' Whole Properties' %}
+	{% endif %}
+
+	<header><h3>{{ title }}</h3></header>
+
+	{% if type is same as('Room') %}
+		{% for room in adverts %}
+			<div class="property small">
+				<a href="{{ path('show_room', { 'id': room.id }) }}">
+					<div class="property-image">
+						{% for photo in room.album.photos %}
+							{% if loop.first %}
+								<img alt="" src="{{ ('/uploads/photos/' ~ photo.path) | imagine_filter('thumb') }}">
+							{% endif %}
+						{% endfor %}
+					</div>
+				</a>
+				<div class="info">
+					<a href="{{ path('show_room', { 'id': room.id }) }}"><h4>{{ room.advertTitle }}</h4></a>
+					<figure>{{ room.street }}</figure>
+					<div class="tag price">{{ room.numberOfRoomsToRent }} Chambres Disponiblent</div>
+				</div>
+			</div><!-- /.property -->
+		{% endfor %}
+
+	{% elseif type is same as('RoomSeeker') %}
+		{% for roomSeeker in adverts %}
+
+			<div class="property small">
+				<a href="{{ path('show_room_seeker', { 'id': roomSeeker.id }) }}">
+					<div class="property-image">
+
+						{% for photo in roomSeeker.album.photos %}
+							{% if loop.first %}
+								<img alt="" src="{{ ('/uploads/photos/' ~ photo.path) | imagine_filter('thumb') }}">
+							{% endif %}
+						{% endfor %}
+
+					</div>
+				</a>
+				<div class="info">
+					<a href="{{ path('show_room_seeker', { 'id': roomSeeker.id }) }}"><h4>{{ roomSeeker.advertTitle }}</h4></a>
+					<figure>{{ roomSeeker.town.name }}</figure>
+					<div class="tag price">{{ roomSeeker.budget }} TND</div>
+				</div>
+			</div><!-- /.property -->
+
+		{% endfor %}
+
+	{% elseif type is same as('WholeProperty') %}
+		{% for wholeProperty in adverts %}
+
+			<div class="property small">
+				<a href="{{ path('show_whole_property', { 'id': wholeProperty.id }) }}">
+					<div class="property-image">
+
+						{% for photo in wholeProperty.album.photos %}
+							{% if loop.first %}
+								<img alt="" src="{{ ('/uploads/photos/' ~ photo.path) | imagine_filter('thumb') }}">
+							{% endif %}
+						{% endfor %}
+
+					</div>
+				</a>
+				<div class="info">
+					<a href="{{ path('show_whole_property', { 'id': wholeProperty.id }) }}"><h4>{{ wholeProperty.advertTitle }}</h4></a>
+					<figure>{{ wholeProperty.street }}</figure>
+					<div class="tag price">{{ wholeProperty.price }} TND</div>
+				</div>
+			</div><!-- /.property -->
+
+		{% endfor %}
+	{% endif %}
+
+</aside><!-- /#featured-properties -->

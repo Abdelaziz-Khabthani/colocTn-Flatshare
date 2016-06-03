@@ -1,0 +1,45 @@
+{% extends "::layout.html.twig" %}
+
+
+
+
+
+{% block title %}
+	Security - {{ parent() }}
+{% endblock %}
+
+
+
+
+
+
+{% block body %}
+
+
+
+
+	{# <div>
+		{% if app.request.hasPreviousSession %}
+			{% for type, messages in app.session.flashbag.all() %}
+				{% for message in messages %}
+					<div class="flash-{{ type }}">
+						{{ message }}
+					</div>
+				{% endfor %}
+			{% endfor %}
+		{% endif %}
+	</div> #}
+
+	{% block fos_user_content %}
+	{% endblock %}
+
+
+
+
+	
+{% endblock %}
+
+
+{% block javascripts %}
+	{{ parent() }}
+{% endblock %}

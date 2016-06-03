@@ -1,0 +1,68 @@
+<div class="col-md-3 col-sm-3">
+	<article>
+		<h3>Les Dériniers Proprieté</h3>
+		{% for advert in advertsProperty %}
+			{% if constant('TYPE', advert) is same as('WHOLE_PROPERTY') %}
+				<div class="property small">
+					<a href="{{ path('show_whole_property', { 'id': advert.id }) }}">
+						<div class="property-image">
+							{% for photo in advert.album.photos %}
+								{% if loop.first %}
+									<img alt="" src="{{ ('/uploads/photos/' ~ photo.path) | imagine_filter('thumb') }}">
+								{% endif %}
+							{% endfor %}
+						</div>
+					</a>
+					<div class="info">
+						<a href="{{ path('show_whole_property', { 'id': advert.id }) }}"><h4>{{ advert.advertTitle }}</h4></a>
+						<figure>{{ advert.street }}</figure>
+						<div class="tag price">{{ advert.price }} TND</div>
+					</div>
+				</div><!-- /.property -->
+				{% elseif constant('TYPE', advert) is same as('ROOM') %}
+				<div class="property small">
+					<a href="{{ path('show_room', { 'id': advert.id }) }}">
+						<div class="property-image">
+							{% for photo in advert.album.photos %}
+								{% if loop.first %}
+									<img alt="" src="{{ ('/uploads/photos/' ~ photo.path) | imagine_filter('thumb') }}">
+								{% endif %}
+							{% endfor %}
+						</div>
+					</a>
+					<div class="info">
+						<a href="{{ path('show_room', { 'id': advert.id }) }}"><h4>{{ advert.advertTitle }}</h4></a>
+						<figure>{{ advert.street }}</figure>
+						<div class="tag price">{{ advert.numberOfRoomsToRent }} Chambres Disponiblent</div>
+					</div>
+				</div><!-- /.property -->
+			{% endif %}
+		{% endfor %}
+	</article>
+</div><!-- /.col-sm-3 -->
+
+<div class="col-md-3 col-sm-3">
+	<article>
+		<h3>Les Dériniers Chercheurs</h3>
+		{% for advert in advertsRoomSeeker %}
+			<div class="property small">
+				<a href="{{ path('show_room_seeker', { 'id': advert.id }) }}">
+					<div class="property-image">
+
+						{% for photo in advert.album.photos %}
+							{% if loop.first %}
+								<img alt="" src="{{ ('/uploads/photos/' ~ photo.path) | imagine_filter('thumb') }}">
+							{% endif %}
+						{% endfor %}
+
+					</div>
+				</a>
+				<div class="info">
+					<a href="{{ path('show_room_seeker', { 'id': advert.id }) }}"><h4>{{ advert.advertTitle }}</h4></a>
+					<figure>{{ advert.town.name }}</figure>
+					<div class="tag price">{{ advert.budget }} TND</div>
+				</div>
+			</div><!-- /.property -->
+		{% endfor %}
+	</article>
+</div>

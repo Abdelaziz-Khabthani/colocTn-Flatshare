@@ -1,0 +1,15 @@
+{% extends "FOSUserBundle::layout.html.twig" %}
+
+{% block title %}
+	Profile - {{ parent() }}
+{% endblock %}
+
+{% block body_decoration 'class="page-sub-page page-my-properties page-account"'%}
+
+{% block fos_user_content %}
+{% include "FOSUserBundle:Profile:show_content.html.twig" %}
+{% endblock fos_user_content %}
+
+{% block javascripts %}
+	{{ parent() }}
+{% endblock %}

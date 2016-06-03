@@ -1,0 +1,20 @@
+{% extends "FOSUserBundle::layout.html.twig" %}
+{% block stylesheets %}
+	{{ parent() }}
+	<style type="text/css">
+		.error {
+			line-height: 10px;
+			bottom: inherit;
+		}
+	</style>
+{% endblock %}
+
+{% block title %}
+	Profile - {{ parent() }}
+{% endblock %}
+
+{% block body_decoration 'class="page-sub-page page-profile page-account"'%}
+
+{% block fos_user_content %}
+	{% include "FOSUserBundle:Profile:edit_content.html.twig" %}
+{% endblock fos_user_content %}

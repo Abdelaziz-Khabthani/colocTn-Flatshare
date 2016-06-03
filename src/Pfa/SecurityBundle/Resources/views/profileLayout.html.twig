@@ -1,0 +1,57 @@
+{% set admin = false %}
+	{% for role in user.roles %}
+		{% if role is same as('ROLE_ADMIN') %}
+			{% set admin = true %}
+			{% endif %}
+		{% endfor %}
+
+		<!-- Breadcrumb -->
+		<div class="container">
+			<ol class="breadcrumb">
+				<li><a href="#">Home</a></li>
+				<li><a href="#">Account</a></li>
+				<li class="active">Profile</li>
+			</ol>
+		</div>
+		<!-- end Breadcrumb -->
+		<div class="container">
+			<div class="row">
+				<div class="col-md-12 col-sm-12">
+					<header class="property-title">
+						<h1>{{ user.firstName }} {{ user.lastName }} {% if admin %}(Admin){% endif %}</h1>
+						<figure>{{ user.email }}</figure>
+						<hr style="border-style: dashed;">
+					</header>
+				</div>
+			</div>
+			<div class="row">
+				<!-- sidebar -->
+				<div class="col-md-3 col-sm-2">
+					<section id="sidebar">
+						<header><h1>Menu</h1></header>
+						<aside>
+							<ul class="sidebar-navigation">
+								<li>
+									<a href="{{ path('fos_user_profile_show', { 'page': '1', 'type': 'bienentier' }) }}"><i class="fa fa-home"></i><span>Mes Annonces</span></a>
+									{% block subMenuProfile %}{% endblock %}
+								</li>
+								{% if admin %}
+									<li>
+										<a href="{{ path('fos_user_profile_all', { 'page': '1', 'type': 'bienentier' }) }}"><i class="fa fa-bars"></i><span>Tous Les Annonces</span></a>
+										{% block subMenuAll %}{% endblock %}
+									</li>
+								{% endif %}
+								<li {% if app.request.attributes.get('_route') is same as('fos_user_profile_edit') %}class="active"{% endif %}><a href="{{ path('fos_user_profile_edit') }}"><i class="fa fa-pencil-square-o"></i><span>Modifier Mon Profile</span></a></li>
+								<li {% if app.request.attributes.get('_route') is same as('fos_user_change_password') %}class="active"{% endif %}><a href="{{ path('fos_user_change_password') }}"><i class="fa fa fa-asterisk"></i><span>Changer Mot De Passe</span></a></li>
+							</ul>
+						</aside>
+					</section><!-- /#sidebar -->
+				</div><!-- /.col-md-3 -->
+				<!-- end Sidebar -->
+				<!-- My Properties -->
+				<div class="col-md-9 col-sm-10">
+					{% block subBody %}{% endblock %}
+				</div><!-- /.col-md-9 -->
+				<!-- end My Properties -->
+			</div><!-- /.row -->
+</div><!-- /.container -->

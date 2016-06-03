@@ -1,0 +1,49 @@
+{% trans_default_domain 'FOSUserBundle' %}
+
+	{% extends "FOSUserBundle::profileLayout.html.twig" %}
+
+	{% block subBody %}
+		<section id="profile">
+			<header><h1>Modifier Profile</h1></header>
+			<div class="account-profile">
+				<div class="row">
+					<div class="col-md-12 col-sm-12">
+						<form role="form" id="form-account-profile" action="{{ path('fos_user_profile_edit') }}" {{ form_enctype(form) }} method="POST" >
+							<section id="contact">
+								<h3>Modifier Votre Profile</h3>
+								<dl class="contact-fields">
+									<dt><label for="form-account-name">Prenom:</label></dt>
+									<dd><div class="form-group">
+										{{ form_widget(form.firstName, { 'attr': {'class': 'form-control'} }) }}
+										{{ form_errors(form.firstName) }}
+									</div><!-- /.form-group --></dd>
+									<dt><label for="form-account-phone">Nom:</label></dt>
+									<dd><div class="form-group">
+										{{ form_widget(form.lastName, { 'attr': {'class': 'form-control'} }) }}
+										{{ form_errors(form.lastName) }}
+									</div><!-- /.form-group --></dd>
+									<dt><label for="form-account-email">Email:</label></dt>
+									<dd><div class="form-group">
+										{{ form_widget(form.email, { 'attr': {'class': 'form-control'} }) }}
+										{{ form_errors(form.email) }}
+									</div><!-- /.form-group --></dd>
+									<dt><label for="form-account-skype">Mot De Passe:</label></dt>
+									<dd>
+										<div class="form-group">
+											{{ form_widget(form.current_password, { 'attr': {'class': 'form-control'} }) }}
+											{{ form_errors(form.current_password) }}
+										</div><!-- /.form-group -->
+									</dd>
+									<dd>
+										<div class="form-group">
+											<button type="submit" class="btn pull-right btn-default" id="account-submit">Modifier</button>
+										</div>
+									</dd>
+								</dl>
+							</section>
+						{{ form_end(form) }}
+					</div><!-- /.col-md-9 -->
+				</div><!-- /.row -->
+			</div><!-- /.account-profile -->
+		</section><!-- /#profile -->
+	{% endblock %}

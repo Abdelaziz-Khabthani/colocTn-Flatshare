@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+
+<html lang="fr">
+<head>
+	<meta charset="UTF-8"/>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta name="author" content="Abdelaziz Khabthani">
+	<script type="text/javascript" src="{{ asset('assets/js/jquery-2.1.0.min.js') }}"></script>
+	<script type="text/javascript" src="{{ asset('assets/js/jquery.blockUI.js') }}"></script>
+
+	{# Stylesheets #}
+	{# use assets:install to make css and images public due a known issue with cssrewrite filter #}
+	{# use assetic:dump --env=prod for production #}
+	{% block stylesheets %}
+		<link href='http://fonts.googleapis.com/css?family=Roboto:300,400,700' rel='stylesheet' type='text/css'>
+		<link href="{{ asset('assets/fonts/font-awesome.css') }}" rel="stylesheet" type="text/css">
+		<link rel="stylesheet" href="{{ asset('assets/bootstrap/css/bootstrap.css') }}" type="text/css">
+		<link rel="stylesheet" href="{{ asset('assets/css/bootstrap-select.min.css') }}" type="text/css">
+		<link rel="stylesheet" href="{{ asset('assets/css/magnific-popup.css') }}" type="text/css">
+		<link rel="stylesheet" href="{{ asset('assets/css/jquery.slider.min.css') }}" type="text/css">
+		<link rel="stylesheet" href="{{ asset('assets/css/owl.carousel.css') }}" type="text/css">
+		<link rel="stylesheet" href="{{ asset('assets/css/fileinput.min.css') }}" type="text/css">
+		<link rel="stylesheet" href="{{ asset('assets/css/style.css') }}" type="text/css">
+		<link rel="stylesheet" href="{{ asset('assets/css/jquery.tagsinput.css') }}" type="text/css">
+		</style>
+		{% stylesheets
+		'bundles/pfamain/css/*'
+		output='assets/css/custom-main.css'
+		combine= true
+		filter='scssphp, cssrewrite' %}
+		<link rel="stylesheet" href="{{ asset_url }}" type="text/css" />
+		{% endstylesheets %}
+
+	{% endblock %}
+	{# EndStylesheets #}
+
+	<title>{% block title %}PFA{% endblock %}</title>
+
+	{% block postTitle %}{% endblock %}
+</head>
+<body id="page-top" {% block body_decoration ''%}>
+	<!-- Wrapper -->
+	<div class="wrapper">
+		<!-- Navigation -->
+		<div class="navigation">
+			<div class="secondary-navigation">
+				<div class="container">
+					<div class="contact">
+						<figure><strong>GSM:</strong>+216 25 650 647</figure>
+						<figure><strong>Email:</strong>abdelaziz.khabthani@outlook.com</figure>
+					</div>
+					<div class="user-area">
+						<div class="actions">
+							{# User Section #}
+							{% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
+								<a href="{{ path('fos_user_profile_show') }}" class="promoted"><strong>Hi, {{ app.user.firstName }}</strong></a>
+								<a href="{{ path('fos_user_security_logout') }}" class="promoted">{{ 'layout.logout'|trans({}, 'FOSUserBundle') }}</a>
+								{% else %}
+								<a href="{{ path('fos_user_security_login') }}" class="promoted">{{ 'layout.login'|trans({}, 'FOSUserBundle') }}</a>
+								<a href="{{ path('fos_user_registration_register') }}" class="promoted">{{ 'layout.register'|trans({}, 'FOSUserBundle') }}</a>
+							{% endif %}
+							{# End user section #}
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="container">
+				<header class="navbar" id="top" role="banner">
+					<div class="navbar-header">
+						<button class="navbar-toggle" type="button" data-toggle="collapse" data-target=".bs-navbar-collapse">
+							<span class="sr-only">Toggle navigation</span>
+							<span class="icon-bar"></span>
+							<span class="icon-bar"></span>
+							<span class="icon-bar"></span>
+						</button>
+						<div class="navbar-brand nav" id="brand">
+							<a href="index-google-map-fullscreen.html"><img src="{{ asset('assets/img/logo.jpg') }}" alt="brand" style="
+    margin-bottom: -25px;
+    margin-top: -25px;
+"></a>
+						</div>
+					</div>
+					<nav class="collapse navbar-collapse bs-navbar-collapse navbar-right" role="navigation">
+						<ul class="nav navbar-nav">
+							<li class=""><a href="#">Acceuill</a>
+								<ul class="child-navigation">
+									<li><a href="index-google-map-fullscreen.html">Google Map Full Screen</a></li>
+									<li><a href="index-google-map-fixed-height.html">Google Map Fixed Height</a></li>
+									<li><a href="index-google-map-fixed-navigation.html">Google Map Fixed Navigation</a></li>
+									<li><a href="index-osm.html">OpenStreetMap Full Screen</a></li>
+									<li><a href="index-osm-fixed-height.html">OpenStreetMap Fixed Height</a></li>
+									<li><a href="index-osm-fixed-navigation.html">OpenStreetMap Fixed Navigation</a></li>
+									<li><a href="index-slider.html">Slider Homepage</a></li>
+									<li><a href="index-slider-search-box.html">Slider with Search Box</a></li>
+									<li><a href="index-horizontal-search-floated.html">Horizontal Search Floated</a></li>
+									<li><a href="index-advanced-horizontal-search.html">Horizontal Advanced Search</a></li>
+									<li><a href="index-slider-horizontal-search-box.html">Horizontal Slider Search</a></li>
+									<li><a href="index-slider-horizontal-search-box-floated.html">Horizontal Slider Floated Search</a></li>
+								</ul>
+							</li>
+							<li class="has-child"><a href="#">Ajouter une annonce</a>
+								<ul class="child-navigation">
+									<li><a href="property-detail.html">Property Detail</a></li>
+									<li><a href="properties-listing.html">Masonry Listing</a></li>
+									<li><a href="properties-listing-grid.html">Grid Listing</a></li>
+									<li><a href="properties-listing-lines.html">Lines Listing</a></li>
+								</ul>
+							</li>
+							<li class=""><a href="#">Contact</a></li>
+							<li class=""><a href="#">Blog</a></li>
+						</ul>
+					</nav><!-- /.navbar collapse-->
+					<div class="add-your-property">
+						<a href="submit.html" class="btn btn-default"><i class="fa fa-plus"></i><span class="text">Poster Une Annonce</span></a>
+					</div>
+				</header><!-- /.navbar -->
+			</div><!-- /.container -->
+		</div><!-- /.navigation -->
+		<!-- end Navigation -->
+		<!-- Page Content -->
+
+		{% block preBody %}
+		{% endblock %}
+
+		<div id="page-content">
+			{% block body %}
+			{% endblock %}
+		</div>
+
+
+		<!-- end Page Content -->
+		<!-- Page Footer -->
+		<footer id="page-footer">
+			<div class="inner">
+				<aside id="footer-main">
+					<div class="container">
+						<div class="row">
+							{{ render(controller('PfaMainBundle:Widget:latestAdvertsAll', { 'limit': 2 })) }}
+
+
+
+							<div class="col-md-3 col-sm-3">
+								<article>
+									<h3>Contact</h3>
+									<address>
+										<strong>Your Company</strong><br>
+										4877 Spruce Drive<br>
+										West Newton, PA 15089
+									</address>
+									+216 25 650 647<br>
+									<a href="#">abdelaziz.khabthani@outlook.com</a>
+								</article>
+							</div><!-- /.col-sm-3 -->
+							<div class="col-md-3 col-sm-3">
+								<article>
+									<h3>Liens Utiles</h3>
+									<ul class="list-unstyled list-links">
+										<li><a href="#">Tous Les Annonces</a></li>
+										<li><a href="#">Réglements</a></li>
+										<li><a href="#">Login</a></li>
+										<li><a href="#">S'enregistrer</a></li>
+									</ul>
+								</article>
+							</div><!-- /.col-sm-3 -->
+						</div><!-- /.row -->
+					</div><!-- /.container -->
+				</aside><!-- /#footer-main -->
+				<aside id="footer-thumbnails" class="footer-thumbnails"></aside><!-- /#footer-thumbnails -->
+				<aside id="footer-copyright">
+					<div class="container">
+						<span>Copyright © {{ 'now'|date('Y') }}. Tous Droits Réservés.</span>
+						<span class="pull-right"><a href="#page-top" class="roll">Revenir En Haut</a></span>
+					</div>
+				</aside>
+			</div><!-- /.inner -->
+		</footer>
+		<!-- end Page Footer -->
+	</div>
+
+
+
+	{# Script #}
+	{% block javascripts %}
+
+		<script type="text/javascript" src="{{ asset('assets/js/jquery-migrate-1.2.1.min.js') }}"></script>
+		
+		<script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false&libraries=places"></script>
+
+		<script type="text/javascript" src="{{ asset('assets/js/markerwithlabel_packed.js') }}"></script>
+
+		<script type="text/javascript" src="{{ asset('assets/bootstrap/js/bootstrap.min.js') }}"></script>
+
+		<script type="text/javascript" src="{{ asset('assets/js/owl.carousel.min.js') }}"></script>
+
+		<script type="text/javascript" src="{{ asset('assets/js/bootstrap-select.min.js') }}"></script>
+
+		<script type="text/javascript" src="{{ asset('assets/js/jquery.validate.min.js') }}"></script>
+
+		<script type="text/javascript" src="{{ asset('assets/js/icheck.min.js') }}"></script>
+
+		<script type="text/javascript" src="{{ asset('assets/js/retina-1.1.0.min.js') }}"></script>
+
+		<script type="text/javascript" src="{{ asset('assets/js/jquery.magnific-popup.min.js') }}"></script>
+
+		<script type="text/javascript" src="{{ asset('assets/js/fileinput.min.js') }}"></script>
+
+		<script type="text/javascript" src="{{ asset('assets/js/custom-map.js') }}"></script>
+
+		<script type="text/javascript" src="{{ asset('assets/js/custom.js') }}"></script>
+
+		<script type="text/javascript" src="{{ asset('assets/js/smoothscroll.js') }}"></script>
+
+		<script type="text/javascript" src="{{ asset('assets/js/jquery.tagsinput.js') }}"></script>
+
+
+		<!--[if gt IE 8]><script type="text/javascript" src="assets/js/ie.js"></script><![endif]-->
+		{% javascripts
+		'@PfaMainBundle/Resources/public/js/*'
+		output='assets/js/custom-main.js'
+		combine=true
+		filter="jsqueeze" %}
+		<script type="text/javascript" src="{{ asset_url }}"></script>
+		{% endjavascripts %}
+	{% endblock %}
+	{# EndScript #}
+
+</body>
+</html>

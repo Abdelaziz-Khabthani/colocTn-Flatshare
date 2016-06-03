@@ -1,0 +1,29 @@
+{
+  "name": "pfa",
+  "version": "0.0.0",
+  "authors": [
+    "Abdelaziz Khabthani <abdelaziz.khabthani@gmail.com>"
+  ],
+  "description": "",
+  "main": "",
+  "moduleType": [
+    "amd",
+    "es6",
+    "globals",
+    "node",
+    "yui"
+  ],
+  "license": "MIT",
+  "homepage": "",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "web/assets/",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+  }
+}

@@ -1,0 +1,67 @@
+<aside id="edit-search">
+	<header><h3>Search Properties</h3></header>
+	<form name="search" role="form" id="form-sidebar" class="form-search" method="GET" action="{{ path('list_search', {'page': 1}) }}">
+		<div class="form-group">
+			<select name="target">
+				<option value="">Vous Cherchez</option>
+				<option value="roomseeker">Un Chercheur De Bien</option>
+				<option value="collocation">Une Collocation</option>
+				<option value="room">Une Chambre Vide</option>
+				<option value="wholeproperty">Un Bien Entier</option>
+			</select>
+		</div><!-- /.form-group -->
+		<div class="form-group">
+			<select name="town">
+				<option value="">Ville</option>
+				<option value="1">Ariana</option>
+				<option value="2">Béja</option>
+				<option value="3">Ben Arous</option>
+				<option value="4">Bizert</option>
+				<option value="5">Gabés</option>
+				<option value="6">Gafsa</option>
+				<option value="7">Jendouba</option>
+				<option value="8">Kairouane</option>
+				<option value="9">Kébili</option>
+				<option value="10">Kef</option>
+				<option value="11">Mahdia</option>
+				<option value="12">La Manouba</option>
+				<option value="13">Médenine</option>
+				<option value="14">Monastir</option>
+				<option value="15">Nabeul</option>
+				<option value="16">Sfax</option>
+				<option value="17">Sidi Bouzid</option>
+				<option value="18">Siliana</option>
+				<option value="19">Sousse</option>
+				<option value="20">Tatouine</option>
+				<option value="21">Tozeur</option>
+				<option value="22">Tunis</option>
+				<option value="23">Zaghouan</option>
+			</select>
+		</div><!-- /.form-group -->
+		<div class="form-group">
+			<select name="gender">
+				<option value="">Vous êtes</option>
+				<option value="1">Male</option>
+				<option value="2">Female</option>
+			</select>
+		</div><!-- /.form-group -->
+		<div class="form-group">
+			<div class="price-range">
+				<input id="price-input" type="text" name="budget" value="100;1000">
+			</div>
+		</div>
+
+		<hr style="border-top: dashed 1px #BBBBBB; width: 50%;" />
+		
+		<div class="form-group">
+			<div class="input-group">
+				<span class="input-group-addon">#</span>
+				<input type="text" name="code" class="form-control" placeholder="Ou taper le code de l'annonce.">
+			</div>
+		</div>
+
+		<div class="form-group">
+			<button type="submit" class="btn btn-default">Chercher</button>
+		</div><!-- /.form-group -->
+	</form><!-- /#form-map -->
+</aside><!-- /#edit-search -->

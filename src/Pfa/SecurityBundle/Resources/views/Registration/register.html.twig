@@ -1,0 +1,11 @@
+{% extends "FOSUserBundle::layout.html.twig" %}
+
+{% block title %}
+	Inscription - {{ parent() }}
+{% endblock %}
+
+{% block body_decoration 'class="page-sub-page page-create-account page-account"'%}
+
+{% block fos_user_content %}
+	{% include "FOSUserBundle:Registration:register_content.html.twig" %}
+{% endblock fos_user_content %}

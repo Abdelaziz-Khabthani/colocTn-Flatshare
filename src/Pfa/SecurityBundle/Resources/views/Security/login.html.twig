@@ -1,0 +1,69 @@
+{% extends "FOSUserBundle::layout.html.twig" %}
+{% trans_default_domain 'FOSUserBundle' %}
+
+
+
+{% block title %}
+    Login - {{ parent() }}
+{% endblock %}
+
+
+
+
+{% block body_decoration 'class="page-sub-page page-sign-in page-account"'%}
+
+
+
+
+    {% block fos_user_content %}
+
+        
+        <div class="container">
+            <ol class="breadcrumb">
+                <li><a href="#">Home</a></li>
+                <li class="active">Sign In</li>
+            </ol>
+        </div>
+
+
+        <div class="container">
+        <header><h1>Sign In</h1></header>
+        <div class="row">
+            <div class="col-md-4 col-sm-6 col-md-offset-4 col-sm-offset-3">
+                {% if error %}
+                    <div class="form-group">
+                        <div class="alert alert-danger">
+                            <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                            <strong>Erreure</strong>
+                            {{ error.messageKey|
+                            trans(error.messageData, 'security') }}.
+                        </div>
+                    </div>
+                {% endif %}
+                <form role="form" action="{{ path("fos_user_security_check") }}" method="post">
+                    <input type="hidden" name="_csrf_token" value="{{ csrf_token }}"/>
+                    <div class="form-group">
+                        <label for="username">{{ 'security.login.email'|trans }}</label>
+                        <input type="email" id="username" name="_username" value="{{ last_username }}" required="required" class="form-control"/>
+                    </div>
+                    <div class="form-group">
+                        <label for="password">{{ 'security.login.password'|trans }}</label>
+                        <input type="password" id="password" name="_password" required="required" class="form-control"/>
+                    </div>
+
+                    <div class="checkbox pull-left" style="position: relative; z-index: 999">
+                        <label>
+                            <input type="checkbox" id="remember_me" name="_remember_me" value="on">{{ 'security.login.remember_me'|trans }}
+                        </label>
+                    </div>
+
+                    <div class="form-group clearfix">
+                        <input type="submit" class="btn pull-right btn-default" id="_submit" name="_submit" value="{{ 'security.login.submit'|trans }}"/>
+                    </div>
+                </form>
+                <hr>
+                <div class="center"><a href="{{ url('fos_user_registration_register') }}">Tu n'est pas encore inscrit ?</a></div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

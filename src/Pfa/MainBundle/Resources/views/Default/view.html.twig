@@ -1,0 +1,232 @@
+{% extends "PfaMainBundle::layout.html.twig" %}
+{% block title %}
+  View - {{ parent() }}
+{% endblock %}
+{% block main_body %}
+  {% for room in rooms %}
+    <h1>{{ constant('TYPE', room) }} #{{ room.id }}</h1>
+    <hr/>
+    <h2>Advert Content</h2>
+    <p>Title: {{ room.advertTitle }}</p>
+    <p>Description: {{ room.advertDescription }}</p>
+    <p>Poste Date: {{ room.postDate|date('Y-m-d') }}</p>
+    <hr/>
+    <h2>Advertiser Informations</h2>
+    <p>I'm a: {{ room.advertiserType.name}}</p>
+    <p>Advertiser Name: {{ room.advertiser.firstName }}</p>
+    <p>Advertiser Lastname: {{ room.advertiser.lastName}}</p>
+    <p>Advertiser E-mail: {{ room.advertiser.email}}</p>
+    <p>Advertiser Phone: {{ room.advertiserPhone}}</p>
+    <hr/>
+    {% if room.numberOfCurrentMate > 0 %}
+      <h2>Current Flatmates Informations</h2>
+      <p>Current Mates: {{ room.numberOfCurrentMate}}</p>
+      <p>Gender: {{ room.selfPreference.gender.name }}s</p>
+      <p>Have Pets: {{ room.selfPreference.pet }}</p>
+      <p>Smoke: {{ room.selfPreference.smocker }}</p>
+      {% if room.numberOfCurrentMate > 1 %}
+        <p>Ages: From {{ room.selfPreference.ageMin }} To {{ room.selfPreference.ageMax }} </p>
+        <p>Universities:
+          <ul>
+           {% for university in room.selfPreference.universities %}
+             <li>{{ university }}</li>
+           {% endfor %}
+         </ul>
+       </p>
+       {% else %}
+       <p>Age: {{ room.selfPreference.ageSolo }}</p>
+       <p> University: {{ room.selfPreference.university }}</p>
+     {% endif %}
+   {% endif %}
+   <hr/>
+   <h2>New Flatmates Preferences</h2>
+   <p>Smoke: {{ room.targetPreference.smocker }}</p>
+   <p>Pet: {{ room.targetPreference.pet }}</p>
+   <p>Gender: {{ room.targetPreference.gender.name }}</p>
+   <p>Age: From {{ room.targetPreference.ageMin }} To {{ room.targetPreference.ageMax }} </p>
+   <p>Universities:
+    <ul>
+     {% for university in room.targetPreference.universities %}
+       <li>{{ university }}</li>
+     {% endfor %}
+   </ul>
+ </p>
+ <hr/>
+ <h2>House Features</h2>
+ <p>Property Type: {{ room.propertyType.name}}</p>
+ <p>Number Of Total Rooms: {{ room.numberOfTotalRooms}}</p>
+ <p>Furnished: {{ room.featureFurnished}}</p>
+ <p>Garden: {{ room.featureGardenTerrace}}</p>
+ <p>Parcking: {{ room.featureParcking}}</p>
+ <p>Tv: {{ room.featureTv}}</p>
+ <p>WIFI: {{ room.featureWifi }}</p>
+ <hr/>
+ <h2>More Informations</h2>
+ <p>Number Of Rooms To Rent: {{ room.numberOfRoomsToRent}}</p>
+ <p>Maximum Renting Time: {{ room.maximumStay}} Month(s)</p>
+ <p>Mainimum Renting Time: {{ room.maximumStay}} Month(s)</p>
+ <p>Available: {{ room.availableDate|date('Y-m-d') }}</p>
+ <p>Facture Included: {{ room.factureFree }}</p>
+ <hr/>
+ <h2>Adresse</h2>
+ <p>Google Maps X: {{ room.gmapLat}}</p>
+ <p>Google Maps Y: {{ room.gmapLng}}</p>
+ <p>Town: {{ room.town.name}}</p>
+ <p>Street: {{ room.street}}</p>
+ <p>Postecode: {{ room.postcode}} </p>
+ <hr/>
+ <h2>Rooms Informations</h2>
+ {% for roomInfo in room.roomsInformations %}
+  <h3>Room #{{ roomInfo.id }}</h3>
+  <p>Room Size: {{ roomInfo.size.name }}</p>
+  <p>Room Price: {{ roomInfo.price }}</p>
+  <p>Suite: {{ roomInfo.suite }}</p>
+{% endfor %}
+<hr/>
+{% endfor %}
+<hr/>
+<hr/>
+<hr/>
+{% for roomSeeker in roomseekers %}
+  <h1>{{ constant('TYPE', roomSeeker) }} #{{ roomSeeker.id }}</h1>
+  {% for photo in roomSeeker.photos %}
+    <img src="{{ vich_uploader_asset(photo, 'imageFile') | imagine_filter('my_thumb') }}" title="{{ photo.caption }}" />
+  {% endfor %}
+  <hr/>
+  <h2>Advert Content</h2>
+  <p>Title: {{ roomSeeker.advertTitle }}</p>
+  <p>Description: {{ roomSeeker.advertDescription }}</p>
+  <p>Poste Date: {{ roomSeeker.postDate|date('Y-m-d') }}</p>
+  <hr/>
+  <h2>Advertiser Informations</h2>
+  <p>Advertiser Name: {{ roomSeeker.advertiser.firstName }}</p>
+  <p>Advertiser Lastname: {{ roomSeeker.advertiser.lastName }}</p>
+  <p>Advertiser E-mail: {{ roomSeeker.advertiser.email }}</p>
+  <p>Advertiser Phone: {{ roomSeeker.advertiserPhone }}</p>
+  <hr/>
+  <h2>Roomseekers Informations</h2>
+  <p>Number Of Roomseekers: {{ roomSeeker.numberOfSeekers }}</p>
+  <p>Gender: {{ roomSeeker.selfPreference.gender.name }}(s)</p>
+  <p>Have Pets: {{ roomSeeker.selfPreference.pet }}</p>
+  <p>Smoke: {{ roomSeeker.selfPreference.smocker }}</p>
+  {% if roomSeeker.numberOfSeekers > 1 %}
+    <p>Ages: From {{ roomSeeker.selfPreference.ageMin }} To {{ roomSeeker.selfPreference.ageMax }} </p>
+    <p>Universities:
+      <ul>
+       {% for university in roomSeeker.selfPreference.universities %}
+         <li>{{ university }}</li>
+       {% endfor %}
+     </ul>
+   </p>
+   {% else %}
+   <p>Age: {{ roomSeeker.selfPreference.ageSolo }}</p>
+   <p>Universities:
+    <ul>
+     {% for university in roomSeeker.selfPreference.universities %}
+       <li>{{ university }}</li>
+     {% endfor %}
+   </ul>
+ </p>
+{% endif %}
+<hr/>
+<h2>New Flatmates Preferences</h2>
+<p>Smoke: {{ roomSeeker.targetPreference.smocker }}</p>
+<p>Pet: {{ roomSeeker.targetPreference.pet }}</p>
+<p>Gender: {{ roomSeeker.targetPreference.gender.name }}</p>
+<p>Age: From {{ roomSeeker.targetPreference.ageMin }} To {{ roomSeeker.targetPreference.ageMax }} </p>
+<p>Universities:
+  <ul>
+    {% for university in roomSeeker.targetPreference.universities %}
+      <li>{{ university }}</li>
+    {% endfor %}
+  </ul>
+</p>
+<hr/>
+<h2>House Features</h2>
+<p>Furnished: {{ roomSeeker.featureFurnished }}</p>
+<p>Garden: {{ roomSeeker.featureGardenTerrace }}</p>
+<p>Parcking: {{ roomSeeker.featureParcking }}</p>
+<p>Tv: {{ roomSeeker.featureTv }}</p>
+<p>WIFI: {{ roomSeeker.featureWifi }}</p>
+<hr/>
+<h2>More Informations</h2>
+<p>Available: {{ roomSeeker.availableDate|date('Y-m-d') }}</p>
+<p>Periode To Stay: {{ roomSeeker.periodeToStay }} Month(s)</p>
+<p>Budget: {{ roomSeeker.budget }}</p>
+<p>Town Wanted: {{ roomSeeker.town.name }}</p>
+<hr/>
+{% endfor %}
+<hr/>
+<hr/>
+<hr/>
+
+
+
+
+
+
+{% for wholeProperty in wholeProperties %}
+  <h1>{{ constant('TYPE', wholeProperty) }} #{{ wholeProperty.id }}</h1>
+  {% for photo in wholeProperty.photos %}
+    <img src="{{ photo.path }}" title="{{ photo.caption }}" />
+  {% endfor %}
+  <hr/>
+  <h2>Advert Content</h2>
+  <p>Title: {{ wholeProperty.advertTitle }}</p>
+  <p>Description: {{ wholeProperty.advertDescription }}</p>
+  <p>Poste Date: {{ wholeProperty.postDate|date('Y-m-d') }}</p>
+  <hr/>
+  <h2>Advertiser Informations</h2>
+  <p>Advertiser Name: {{ wholeProperty.advertiser.firstName }}</p>
+  <p>Advertiser Lastname: {{ wholeProperty.advertiser.lastName}}</p>
+  <p>Advertiser E-mail: {{ wholeProperty.advertiser.email}}</p>
+  <p>Advertiser Phone: {{ wholeProperty.advertiserPhone}}</p>
+  <hr/>
+  <h2>New Flatmates Preferences</h2>
+  <p>Smoke: {{ wholeProperty.targetPreference.smocker }}</p> 
+  <p>Pet: {{ wholeProperty.targetPreference.pet }}</p> 
+  <p>Gender: {{ wholeProperty.targetPreference.gender.name }}</p>
+  <p>Age: From {{ wholeProperty.targetPreference.ageMin }} To {{ wholeProperty.targetPreference.ageMax }} </p>
+  <p>Universities:
+    <ul>
+     {% for university in wholeProperty.targetPreference.universities %} x
+       <li>{{ university }}</li>
+     {% endfor %}
+   </ul>
+ </p>
+ <hr/>
+ <h2>House Features</h2>
+ <p>Property Type: {{ wholeProperty.propertyType.name}}</p>
+ <p>Number Of Total Rooms: {{ wholeProperty.numberOfTotalRooms}}</p>
+ <p>Furnished: {{ wholeProperty.featureFurnished}}</p>
+ <p>Garden: {{ wholeProperty.featureGardenTerrace}}</p>
+ <p>Parcking: {{ wholeProperty.featureParcking}}</p>
+ <p>Tv: {{ wholeProperty.featureTv}}</p>
+ <p>WIFI: {{ wholeProperty.featureWifi }}</p>
+ <hr/>
+ <h2>More Informations</h2>
+ <p>Maximum Renting Time: {{ wholeProperty.maximumStay}} Month(s)</p>
+ <p>Mainimum Renting Time: {{ wholeProperty.maximumStay}} Month(s)</p>
+ <p>Available: {{ wholeProperty.availableDate|date('Y-m-d') }}</p>
+ <p>Price Per Month: {{ wholeProperty.price }}</p>
+ <p>Facture Included: {{ wholeProperty.factureFree }}</p>
+ <hr/>
+ <h2>Adresse</h2>
+ <p>Google Maps X: {{ wholeProperty.gmapLat}}</p>
+ <p>Google Maps Y: {{ wholeProperty.gmapLng}}</p>
+ <p>Town: {{ wholeProperty.town.name}}</p>
+ <p>Street: {{ wholeProperty.street}}</p>
+ <p>Postecode: {{ wholeProperty.postcode}} </p>
+ <hr/>
+ <h2>Rooms Informations</h2>
+ {% for roomInfo in wholeProperty.roomsInformations %} x
+  <h3>Room #{{ roomInfo.id }}</h3>
+  <p>Room Size: {{ roomInfo.size.name }}</p>
+  <p>Suite: {{ roomInfo.suite }}</p>
+{% endfor %}
+<hr/>
+{% endfor %}
+<hr/>
+<hr/>
+<hr/>
+{% endblock %}

@@ -1,0 +1,1110 @@
+{% extends "PfaMainBundle::layout.html.twig" %}
+{% block title %}
+	{% if idTag == 'form-submit' %}Ajouter Une Chambre - {% else %} Modifier Une Chambre - {% endif %} {{ parent() }}
+{% endblock %}
+
+{% set idTag %}{% spaceless %}{{ id }}{% endspaceless %}{% endset %}
+
+{% block body_decoration 'class="page-sub-page page-submit"'%}
+	{% block body %}
+		<!-- Breadcrumb -->
+		<div class="container">
+			<ol class="breadcrumb">
+				<li><a href="#">Home</a></li>
+				<li class="active">{% if idTag == 'form-submit' %}Ajouter Une Chambre - {% else %} Modifier Une Chambre - {% endif %}</li>
+			</ol>
+		</div>
+		<!-- end Breadcrumb -->
+		<!-- Form -->
+		<div class="container">
+		<header><h1>{% if idTag == 'form-submit' %}Ajouter Une Chambre - {% else %} Modifier Une Chambre - {% endif %}</h1></header>
+		<!-- SUPERFORM -->
+		{{ form_start(form, {'attr': {'role': 'form', 'id': idTag, 'class': 'form-submit'}}) }}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+		<div class="row">
+			<div class="block">
+				<div class="col-md-9 col-sm-9">
+					<section id="submit-form">
+						<section id="basic-information">
+							<header>
+								<h2>Information Génerale</h2>
+							</header>
+							<div class="row">
+								<div class="col-md-8">
+									<div class="form-group">
+										{{ form_label(form.advertTitle) }}
+										{{ form_widget(form.advertTitle, { 'attr': {'class': 'form-control'} }) }}
+										{{ form_errors(form.advertTitle) }}
+									</div>
+									<!-- /.form-group -->
+								</div>
+								<div class="col-md-4">
+									<div class="form-group">
+										{{ form_label(form.advertiserType) }}
+										{{ form_widget(form.advertiserType) }}
+										{{ form_errors(form.advertiserType) }}
+									</div>
+									<!-- /.form-group -->
+								</div>
+							</div>
+							<div class="row">
+								<div class="col-md-12">
+									<div class="form-group">
+										{{ form_label(form.advertiserPhone) }}
+										{{ form_widget(form.advertiserPhone, { 'attr': {'class': 'form-control'} }) }}
+										{{ form_errors(form.advertiserPhone) }}
+									</div>
+								</div>
+							</div>
+							<div class="form-group">
+								{{ form_label(form.advertDescription) }}
+								{{ form_widget(form.advertDescription, { 'attr': {'class': 'form-control', 'rows': '8'} }) }}
+								{{ form_errors(form.advertDescription) }}
+							</div>
+							<!-- /.form-group -->
+						</section>
+						<!-- /#basic-information -->
+					</section>
+				</div>
+				<!-- /.col-md-9 -->
+				<div class="col-md-3 col-sm-3">
+					<aside class="submit-step">
+					<figure class="step-number">1</figure>
+					<div class="description">
+						<h4>Enter Information About Property</h4>
+						<p>Type information about your property. Be descriptive.
+						</p>
+					</div>
+				</aside>
+				<!-- /.submit-step -->
+			</div>
+			<!-- /.col-md-3 -->
+		</div>
+	</div>
+	<!-- /.row -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	<div class="row">
+		<div class="col-md-9 col-sm-9">
+			<div class="row">
+				<div class="col-md-6 col-sm-6">
+					<section id="summary">
+						<header>
+							<h2>Summary</h2>
+						</header>
+						<div class="row">
+							<div class="col-md-6 col-sm-6">
+								<div class="form-group">
+									{{ form_label(form.propertyType) }}
+									{{ form_widget(form.propertyType) }}
+									{{ form_errors(form.propertyType) }}
+								</div>
+								<!-- /.form-group -->
+							</div>
+							<!-- /.col-md-6 -->
+							<div class="col-md-6 col-sm-6">
+								<div class="form-group">
+									{{ form_label(form.availableDate) }}
+									{{ form_widget(form.availableDate) }}
+									{{ form_errors(form.availableDate) }}
+								</div>
+								<!-- /.form-group -->
+							</div>
+							<!-- /.col-md-6 -->
+						</div>
+						<!-- /.row -->
+						<div class="row">
+							<div class="col-md-6 col-sm-6">
+								<div class="form-group">
+									{{ form_label(form.minimumStay) }}
+									{{ form_widget(form.minimumStay) }}
+									{{ form_errors(form.minimumStay) }}
+								</div>
+								<!-- /.form-group -->
+							</div>
+							<!-- /.col-md-6 -->
+							<div class="col-md-6 col-sm-6">
+								<div class="form-group">
+									{{ form_label(form.maximumStay) }}
+									{{ form_widget(form.maximumStay) }}
+									{{ form_errors(form.maximumStay) }}
+								</div>
+								<!-- /.form-group -->
+							</div>
+							<!-- /.col-md-6 -->
+						</div>
+						<!-- /.row -->
+						
+					</section>
+					<!-- /#summary -->
+				</div>
+				<!-- /.col-md-6 -->
+				<div class="col-md-6 col-sm-6">
+					<section id="place-on-map">
+						<header class="section-title">
+							<h2>Adresse</h2>
+						</header>
+						<div class="row">
+							<div class="col-md-6 col-sm-6">
+								<div class="form-group">
+									{{ form_label(form.town) }}
+									{{ form_widget(form.town) }}
+									{{ form_errors(form.town) }}
+								</div>
+								<!-- /.form-group -->
+							</div>
+							<!-- /.col-md-6 -->
+							<div class="col-md-6 col-sm-6">
+								<div class="form-group">
+									{{ form_label(form.postcode) }}
+									{{ form_widget(form.postcode) }}
+									{{ form_errors(form.postcode) }}
+								</div>
+								<!-- /.form-group -->
+							</div>
+							<!-- /.col-md-6 -->
+						</div>
+						<div class="form-group">
+							{{ form_label(form.street) }} <i class="fa fa-question-circle tool-tip"  data-toggle="tooltip" data-placement="right" title="Ce Champ est initialisé par votre adresse courrante."></i>
+							{{ form_widget(form.street, { 'attr': {'class': 'form-control', 'placeholder': 'Votre Adresse Complete'} }) }}
+						</div>
+						<!-- /.form-group -->
+						<div class="row">
+							<div class="col-md-6">
+								<div class="form-group">
+									{{ form_widget(form.gmapLat, { 'attr': {'class': 'form-control', 'style': 'display: none;'} }) }}
+								</div>
+								<!-- /.form-group -->
+							</div>
+							<div class="col-md-6">
+								<div class="form-group">
+									{{ form_widget(form.gmapLng, { 'attr': {'class': 'form-control', 'style': 'display: none;'} }) }}
+								</div>
+								<!-- /.form-group -->
+							</div>
+						</div>
+					</section>
+					<!-- /#place-on-map -->
+				</div>
+				<!-- /.col-md-6 -->
+				<div class="col-md-12">
+					<div class="form-group">
+						<label>Or drag the marker to property position</label>
+						<span class="link-arrow geo-location pull-right">Get My Position</span>
+						<div id="submit-map"></div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+
+
+
+
+
+	<div class="row">
+			<div class="col-md-9 col-sm-9">
+				<section id="property-features">
+					<header>
+						<h2>Property Features</h2>
+					</header>
+					<ul class="submit-features">
+						<li>
+							<div class="checkbox">
+								<label>
+									{{ form_widget(form.featureTv) }}
+									{{ form_label(form.featureTv) }}
+								</label>
+							</div>
+						</li>
+						<li>
+							<div class="checkbox">
+								<label>
+									{{ form_widget(form.featureGardenTerrace) }}
+									{{ form_label(form.featureGardenTerrace) }}
+								</label>
+							</div>
+						</li>
+						<li>
+							<div class="checkbox">
+								<label>
+									{{ form_widget(form.featureParcking) }}
+									{{ form_label(form.featureParcking) }}
+								</label>
+							</div>
+						</li>
+						<li>
+							<div class="checkbox">
+								<label>
+									{{ form_widget(form.featureFurnished) }}
+									{{ form_label(form.featureFurnished) }}
+								</label>
+							</div>
+						</li>
+						<li>
+							<div class="checkbox">
+								<label>
+									{{ form_widget(form.featureWifi) }}
+									{{ form_label(form.featureWifi) }}
+								</label>
+							</div>
+						</li>
+						<li>
+							<div class="checkbox">
+								<label>
+									{{ form_widget(form.factureFree) }}
+									{{ form_label(form.factureFree) }}
+								</label>
+							</div>
+						</li>
+					</ul>
+				</section>
+			</div>
+	</div>
+
+
+
+
+
+
+
+
+
+
+
+<div class="row">
+<div class="col-md-9 col-sm-9">
+<section id="gallery">
+	<header>
+		<h2>Gallery</h2>
+	</header>
+	<div class="center">
+		<div class="form-group">
+			{{ form_widget(form.album.uploadedFiles, { 'attr': {'class': 'file', 'id': 'file-upload', 'data-show-upload': 'false', 'data-show-caption': 'false', 'data-show-remove': 'false', 'accept': 'image/jpeg,image/png', 'data-browse-class': 'btn btn-default', 'data-browse-label': 'Parcourir Les Photos'} }) }}
+		<figure class="note"><strong>Hint:</strong> You can upload all images at once!</figure>
+	</div>
+</div>
+</section>
+<hr/>
+</div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	<div class="row">
+		<div class="block">
+			<div class="col-md-9 col-sm-9">
+				<div class="row">
+					<div class="col-md-12 col-sm-12">
+						<section id="room-info-room">
+							<header>
+								<h2>Information à propos les chambres</h2>
+							</header>
+							<div class="row">
+								<div class="col-md-6 col-sm-6">
+									<div class="form-group">
+										{{ form_label(form.numberOfTotalRooms) }}
+										{{ form_widget(form.numberOfTotalRooms) }}
+										{{ form_errors(form.numberOfTotalRooms) }}
+									</div>
+								</div>
+
+								<div class="col-md-6 col-sm-6">
+									<div class="form-group">
+										{{ form_label(form.numberOfRoomsToRent) }}
+										{{ form_widget(form.numberOfRoomsToRent) }}
+										{{ form_errors(form.numberOfRoomsToRent) }}
+									</div>
+								</div>
+							</div>
+							<hr style="border-top: dashed 1px #BBBBBB; width: 50%;" />
+						
+
+
+
+
+
+
+
+
+							<div id="pfa_mainbundle_room_roomsInformations" data-prototype="<div id=&quot;pfa_mainbundle_room_roomsInformations___name__&quot;><div class=&quot;row&quot;><div class=&quot;col-md-6 col-sm-6&quot;><div class=&quot;form-group&quot;><label for=&quot;pfa_mainbundle_room_roomsInformations___name___size&quot; class=&quot;required&quot;>__name__label__</label><select id=&quot;pfa_mainbundle_room_roomsInformations___name___size&quot; name=&quot;pfa_mainbundle_room[roomsInformations][__name__][size]&quot;>            <option value=&quot;1&quot; >Single</option><option value=&quot;2&quot; >Double</option></select></div></div><div class=&quot;col-md-6 col-sm-6&quot;><div class=&quot;form-group&quot;> <label for=&quot;pfa_mainbundle_room_roomsInformations___name___price&quot; class=&quot;required&quot;>Prix</label>TND<input type=&quot;text&quot; id=&quot;pfa_mainbundle_room_roomsInformations___name___price&quot; name=&quot;pfa_mainbundle_room[roomsInformations][__name__][price]&quot; required=&quot;required&quot; /></div></div></div><div class=&quot;row&quot;><div class=&quot;col-md-6 col-sm-6&quot;><div class=&quot;form-group&quot;><ul class=&quot;submit-features&quot;><li><div class=&quot;checkbox&quot;><label><input type=&quot;checkbox&quot; id=&quot;pfa_mainbundle_room_roomsInformations___name___suite&quot; name=&quot;pfa_mainbundle_room[roomsInformations][__name__][suite]&quot; value=&quot;1&quot; /><label for=&quot;pfa_mainbundle_room_roomsInformations___name___suite&quot;>Suite</label></label></div></li></ul></div></div><div class=&quot;col-md-6 col-sm-6&quot;><div class=&quot;form-group&quot;><div class=&quot;checkbox&quot;><label><input type=&quot;checkbox&quot; id=&quot;pfa_mainbundle_room_roomsInformations___name___alreadyOneThere&quot; name=&quot;pfa_mainbundle_room[roomsInformations][__name__][alreadyOneThere]&quot; value=&quot;1&quot; /> <label for=&quot;pfa_mainbundle_room_roomsInformations___name___alreadyOneThere&quot;>Il déja quelqun dans la chambre</label></label></div></div></div></div><hr style=&quot;border-top: dashed 1px #BBBBBB; width: 50%; margin-top: 0;&quot; /></div>">
+								{% if form.roomsInformations|length > 0 %}
+									{% for roomsInformation in form.roomsInformations %}
+										
+										<div id="{{ 'pfa_mainbundle_room_roomsInformations_' ~ loop.index0 }}">
+    
+										    <div class="row">
+										        <div class="col-md-6 col-sm-6">
+										            <div class="form-group">
+										                <label>{{ 'Chambre N°' ~ loop.index }}</label>
+										                {{ form_widget(roomsInformation.size) }}
+										                {{ form_errors(roomsInformation.size) }}
+										            </div>
+										        </div>
+										        <div class="col-md-6 col-sm-6">
+										            <div class="form-group">
+										                {{ form_label(roomsInformation.price) }}
+										                {{ form_widget(roomsInformation.price) }}
+										                {{ form_errors(roomsInformation.price) }}
+										            </div>
+										        </div>
+										    </div>
+
+
+
+
+										    <div class="row">
+										        <div class="col-md-6 col-sm-6">
+										            <div class="form-group">
+										                <ul class="submit-features">
+										                    <li>
+										                        <div class="checkbox">
+										                            <label>
+										                                {{ form_widget(roomsInformation.suite) }}
+										                                {{ form_label(roomsInformation.suite) }}
+										                            </label>
+										                        </div>
+										                    </li>
+										                </ul>
+										            </div>
+										            <!-- /.form-group -->
+										        </div>
+										        <!-- /.col-md-6 -->
+										        <div class="col-md-6 col-sm-6">
+										            <div class="form-group">
+										                <div class="checkbox">
+										                    <label>
+										                        {{ form_widget(roomsInformation.alreadyOneThere) }} {{ form_label(roomsInformation.alreadyOneThere) }}
+										                    </label>
+										                </div>
+										            </div>
+										            <!-- /.form-group -->
+										        </div>
+										        <!-- /.col-md-6 -->
+										    </div>
+										    <hr style="border-top: dashed 1px #BBBBBB; width: 50%; margin-top: 0;" />
+										</div>
+										{% endfor %}
+									{% else %}
+										<div id="pfa_mainbundle_room_roomsInformations_0">
+											<div class="row">
+												<div class="col-md-6 col-sm-6">
+													<div class="form-group">
+														<label for="pfa_mainbundle_room_roomsInformations_0_size" class="required">
+															Chambre N°1
+														</label>
+														<select id="pfa_mainbundle_room_roomsInformations_0_size" name="pfa_mainbundle_room[roomsInformations][0][size]">
+															<option value="1" >
+																Single
+															</option>
+															<option value="2" >
+																Double
+															</option>
+														</select>
+													</div>
+												</div>
+												<div class="col-md-6 col-sm-6">
+													<div class="form-group">
+														<label for="pfa_mainbundle_room_roomsInformations_0_price" class="required">
+															Prix
+														</label>TND
+														<input type="text" id="pfa_mainbundle_room_roomsInformations_0_price" name="pfa_mainbundle_room[roomsInformations][0][price]" required="required" />
+													</div>
+												</div>
+											</div>
+											<div class="row">
+												<div class="col-md-6 col-sm-6">
+													<div class="form-group">
+														<ul class="submit-features">
+															<li>
+																<div class="checkbox">
+																	<label>
+																		<input type="checkbox" id="pfa_mainbundle_room_roomsInformations_0_suite" name="pfa_mainbundle_room[roomsInformations][0][suite]" value="1" />
+																		<label for="pfa_mainbundle_room_roomsInformations_0_suite">
+																			Suite
+																		</label>
+																	</label>
+																</div>
+															</li>
+														</ul>
+													</div>
+												</div>
+												<div class="col-md-6 col-sm-6">
+													<div class="form-group">
+														<div class="checkbox">
+															<label>
+																<input type="checkbox" id="pfa_mainbundle_room_roomsInformations_0_alreadyOneThere" name="pfa_mainbundle_room[roomsInformations][0][alreadyOneThere]" value="1" />
+																<label for="pfa_mainbundle_room_roomsInformations_0_alreadyOneThere">
+																	Il déja quelqun dans la chambre
+																</label>
+															</label>
+														</div>
+													</div>
+												</div>
+											</div>
+											<hr style="border-top: dashed 1px #BBBBBB; width: 50%; margin-top: 0;" />
+										</div>
+									{% endif %}
+								</div>
+
+				</section>
+			</div>
+		</div>
+		<hr/>
+	</div>
+	<div class="col-md-3 col-sm-3">
+		<aside class="submit-step">
+		<figure class="step-number">2</figure>
+		<div class="description">
+			<h4>Enter Information About Property</h4>
+			<p>Type information about your property. Be descriptive.
+			</p>
+		</div>
+	</aside>
+</div>
+</div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="row">
+<div class="block">
+<div class="col-md-9 col-sm-9">
+	<div class="row">
+		<div class="col-md-12 col-sm-12">
+			<section id="pref-current">
+				<header>
+					<h2>Preference des nouveaux collocataires</h2>
+				</header>
+				<div class="row">
+					<div class="col-md-6 col-sm-6">
+						<div class="form-group">
+							{{ form_label(form.targetPreference.ageMin) }}
+							{{ form_widget(form.targetPreference.ageMin) }}
+							{{ form_errors(form.targetPreference.ageMin) }}
+						</div>
+						<!-- /.form-group -->
+					</div>
+					<!-- /.col-md-6 -->
+					<div class="col-md-6 col-sm-6">
+						<div class="form-group">
+							{{ form_label(form.targetPreference.ageMax) }}
+							{{ form_widget(form.targetPreference.ageMax) }}
+							{{ form_errors(form.targetPreference.ageMax) }}
+						</div>
+						<!-- /.form-group -->
+					</div>
+					<!-- /.col-md-6 -->
+				</div>
+				<div class="form-group">
+					{{ form_label(form.targetPreference.gender) }}
+					{{ form_widget(form.targetPreference.gender) }}
+					{{ form_errors(form.targetPreference.gender) }}
+				</div>
+				<!-- /.row -->
+				<div class="row">
+					<div class="col-md-6 col-sm-6">
+						<div class="form-group">
+							<ul class="submit-features">
+								<li>
+									<div class="checkbox">
+										<label>
+											{{ form_widget(form.targetPreference.smocker) }}
+											{{ form_label(form.targetPreference.smocker) }}
+										</label>
+									</div>
+								</li>
+							</ul>
+						</div>
+						<!-- /.form-group -->
+					</div>
+					<!-- /.col-md-6 -->
+					<div class="col-md-6 col-sm-6">
+						<div class="form-group">
+							<ul class="submit-features">
+								<li>
+									<div class="checkbox">
+										<label>
+											{{ form_widget(form.targetPreference.pet) }}
+											{{ form_label(form.targetPreference.pet) }}
+										</label>
+									</div>
+								</li>
+							</ul>
+						</div>
+						<!-- /.form-group -->
+					</div>
+					<!-- /.col-md-6 -->
+				</div>
+				<!-- /.row -->
+			</section>
+			<!-- /#summary -->
+		</div>
+		<!-- /.col-md-6 -->
+		<!-- /.block -->
+	</div>
+	<hr/>
+</div>
+<div class="col-md-3 col-sm-3">
+	<aside class="submit-step">
+	<figure class="step-number">3</figure>
+	<div class="description">
+		<h4>Enter Information About Property</h4>
+		<p>Type information about your property. Be descriptive.
+		</p>
+	</div>
+</aside>
+</div>
+</div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="row" id="current-colac">
+<div class="block">
+<div class="col-md-9 col-sm-9">
+	<div class="row">
+		<div class="col-md-12 col-sm-12">
+			<section>
+				<header>
+					<h2>Preference des Collocataires courrants</h2>
+				</header>
+				
+
+				<div class="row">
+					<div class="col-md-12 col-sm-12">
+						<div class="form-group">
+							{{ form_label(form.numberOfCurrentMate) }}
+							{{ form_widget(form.numberOfCurrentMate) }}
+							{{ form_errors(form.numberOfCurrentMate) }}
+						</div>
+					</div>
+				</div>
+
+
+
+
+
+
+
+
+
+
+				<div class="row" id="room-age-self">
+					<div class="col-md-6 col-sm-6">
+						<div class="form-group">
+							{{ form_label(form.selfPreference.ageMin) }}
+							{{ form_widget(form.selfPreference.ageMin) }}
+							{{ form_errors(form.selfPreference.ageMin) }}
+						</div>
+						<!-- /.form-group -->
+					</div>
+					<!-- /.col-md-6 -->
+					<div class="col-md-6 col-sm-6">
+						<div class="form-group">
+							{{ form_label(form.selfPreference.ageMax) }}
+							{{ form_widget(form.selfPreference.ageMax) }}
+							{{ form_errors(form.selfPreference.ageMax) }}
+						</div>
+						<!-- /.form-group -->
+					</div>
+					<!-- /.col-md-6 -->
+					<div class="col-md-12 col-sm-12">
+					<div class="form-group">
+						{{ form_label(form.selfPreference.ageSolo) }}
+						{{ form_widget(form.selfPreference.ageSolo) }}
+						{{ form_errors(form.selfPreference.ageSolo) }}
+					</div>
+				</div>
+				</div>
+				
+
+
+
+
+
+
+
+
+
+
+
+
+
+				<div class="row">
+					<div class="col-md-12 col-sm-12">
+						<div class="form-group">
+							{{ form_label(form.universitiesNotMapped) }} <i class="fa fa-question-circle tool-tip"  data-toggle="tooltip" data-placement="right" title="Ajouter Des Univérsités Séparé Par Des Virgules."></i>
+							{{ form_widget(form.universitiesNotMapped, { 'attr': {'class': 'form-control'} }) }}
+						</div>
+					</div>
+				</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+				<div class="row">
+					<div class="col-md-6 col-sm-6">
+						<div class="form-group">
+							<ul class="submit-features">
+								<li>
+									<div class="checkbox">
+										<label>
+											{{ form_widget(form.selfPreference.smocker) }}
+											{{ form_label(form.selfPreference.smocker) }}
+										</label>
+									</div>
+								</li>
+							</ul>
+						</div>
+						<!-- /.form-group -->
+					</div>
+					<!-- /.col-md-6 -->
+					<div class="col-md-6 col-sm-6">
+						<div class="form-group">
+							<ul class="submit-features">
+								<li>
+									<div class="checkbox">
+										<label>
+											{{ form_widget(form.selfPreference.pet) }}
+											{{ form_label(form.selfPreference.pet) }}
+										</label>
+									</div>
+								</li>
+							</ul>
+						</div>
+						<!-- /.form-group -->
+					</div>
+					<!-- /.col-md-6 -->
+				</div>
+
+
+
+
+				<!-- /.row -->
+			</section>
+			<!-- /#summary -->
+		</div>
+		<!-- /.col-md-6 -->
+		<!-- /.block -->
+	</div>
+	<hr/>
+</div>
+<div class="col-md-3 col-sm-3">
+	<aside class="submit-step">
+	<figure class="step-number">4</figure>
+	<div class="description">
+		<h4>Enter Information About Property</h4>
+		<p>Type information about your property. Be descriptive.
+		</p>
+	</div>
+</aside>
+</div>
+</div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="row" id="submit-button">
+<div class="block">
+<div class="col-md-9 col-sm-9">
+<div class="center">
+<div class="form-group">
+<button type="submit" class="btn btn-default large">Sauvgarder L'annocne</button>
+</div>
+<!-- /.form-group -->
+<figure class="note block">By clicking the “Proceed to Payment” or “Submit” button you agree with our <a href="terms-conditions.html">Terms and conditions</a></figure>
+</div>
+</div>
+<div class="col-md-3 col-sm-3">
+<aside class="submit-step">
+<figure class="step-number">5</figure>
+<div class="description">
+<h4>Review Information and Proceed to Payment</h4>
+<p>Carefully check entered information and than click button to submit them.
+</p>
+</div>
+</aside>
+<!-- /.submit-step -->
+</div>
+<!-- /.col-md-3 -->
+</div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+{{ form_widget(form.targetPreference.universities) }}
+{% do form.roomsInformations.setRendered %}
+{% do form.selfPreference.gender.setRendered %}
+{% do form.selfPreference.universities.setRendered %}
+{{ form_end(form) }}
+<!-- /#form-submit -->
+<!-- ENDSUPERFORM -->
+</div>
+<!-- End Form -->
+{% endblock %}
+
+
+
+
+
+{% block javascripts %}
+{{ parent() }}
+<script>
+$('#pfa_mainbundle_room_universitiesNotMapped').tagsInput({width:'auto'});
+$('[id ^=pfa_mainbundle_][id $=_targetPreference_universities]').attr('style', 'display: none;');
+///////////////////////////////////////////////////////////////////////////////////////////
+var now = new Date();
+var day = ("0" + now.getDate()).slice(-2);
+var month = ("0" + (now.getMonth() + 1)).slice(-2);
+var today = now.getFullYear()+"-"+(month)+"-"+(day) ;
+$('#pfa_mainbundle_room_availableDate').val(today);
+///////////////////////////////////////////////////////////////////////////////////////////
+
+	if (($('#form-submit-edit').length) ||($('.error')))
+	{
+		var _latitude = parseFloat($('#pfa_mainbundle_room_gmapLat').val());
+		var _longitude = parseFloat($('#pfa_mainbundle_room_gmapLng').val());
+	} 
+	else
+	{
+		var _latitude = 36.98861021318873;
+		var _longitude = 10.165137329101526;
+	}
+	google.maps.event.addDomListener(window, 'load', initSubmitMap(_latitude,_longitude));
+	function initSubmitMap(_latitude,_longitude){
+		var mapCenter = new google.maps.LatLng(_latitude,_longitude);
+		var mapOptions = {
+			zoom: 15,
+			center: mapCenter,
+			disableDefaultUI: false,
+//scrollwheel: false,
+styles: mapStyles
+};
+var mapElement = document.getElementById('submit-map');
+map = new google.maps.Map(mapElement, mapOptions);
+var marker = new MarkerWithLabel({
+position: mapCenter,
+map: map,
+icon: "{{ asset('assets/img/marker.png') }}",
+labelAnchor: new google.maps.Point(50, 0),
+draggable: true
+});
+$('#submit-map').removeClass('fade-map');
+google.maps.event.addListener(marker, "mouseup", function (event) {
+var latitude = this.position.lat();
+var longitude = this.position.lng();
+$('#pfa_mainbundle_room_gmapLat').val( this.position.lat() );
+$('#pfa_mainbundle_room_gmapLng').val( this.position.lng() );
+getAddressFromLatLang(this.position.lat(), this.position.lng());
+getUniversitiesNearby(map, this.position.lat(), this.position.lng(), 5000);
+});
+// Autocomplete
+var input = /** @type {HTMLInputElement} */( document.getElementById('pfa_mainbundle_room_street') );
+/*var options = {
+types: ['(cities)'],
+componentRestrictions: {country: "tn"}
+};*/
+var autocomplete = new google.maps.places.Autocomplete(input);
+autocomplete.bindTo('bounds', map);
+google.maps.event.addListener(autocomplete, 'place_changed', function() {
+var place = autocomplete.getPlace();
+if (!place.geometry) {
+	return;
+}
+if (place.geometry.viewport) {
+	map.fitBounds(place.geometry.viewport);
+} else {
+	map.setCenter(place.geometry.location);
+	map.setZoom(17);
+}
+marker.setPosition(place.geometry.location);
+marker.setVisible(true);
+$('#pfa_mainbundle_room_gmapLat').val( marker.getPosition().lat() );
+$('#pfa_mainbundle_room_gmapLng').val( marker.getPosition().lng() );
+getUniversitiesNearby(map, marker.getPosition().lat(), marker.getPosition().lng(), 5000);
+var address = '';
+if (place.address_components) {
+	address = [
+	(place.address_components[0] && place.address_components[0].short_name || ''),
+	(place.address_components[1] && place.address_components[1].short_name || ''),
+	(place.address_components[2] && place.address_components[2].short_name || '')
+	].join(' ');
+}
+});
+}
+//////////////////////////////////////////////////////////////////////////////////////////////
+if (($('#form-submit').length) && $('.error').length == 0)
+{
+	google.maps.event.addListenerOnce(map, 'idle', function(){
+	getCurrentPosition();
+	});
+}
+//////////////////////////////////////////////////////////////////////////////////////////////
+function success(position) {
+initSubmitMap(position.coords.latitude, position.coords.longitude);
+$('#pfa_mainbundle_room_gmapLat').val( position.coords.latitude );
+$('#pfa_mainbundle_room_gmapLng').val( position.coords.longitude );
+getAddressFromLatLang(position.coords.latitude, position.coords.longitude);
+getUniversitiesNearby(map, position.coords.latitude, position.coords.longitude, 5000);
+}
+function getAddressFromLatLang(lat,lng){
+var geocoder = new google.maps.Geocoder();
+var latLng = new google.maps.LatLng(lat, lng);
+geocoder.geocode( { 'latLng': latLng}, function(results, status) {
+	if (status == google.maps.GeocoderStatus.OK) {
+		if (results[0]) {
+			$('#pfa_mainbundle_room_street').val(results[0].formatted_address)
+		}
+	}else{
+		alert("Geocode was not successful for the following reason: " + status);
+	}
+});
+}
+function getCurrentPosition(){
+if (navigator.geolocation) {
+	$('#submit-map').addClass('fade-map');
+	navigator.geolocation.getCurrentPosition(success);
+} else {
+	error('Geo Location is not supported');
+}
+}
+$('.geo-location').on("click", function() {
+if (navigator.geolocation) {
+	$('#submit-map').addClass('fade-map');
+	navigator.geolocation.getCurrentPosition(success);
+} else {
+	error('Geo Location is not supported');
+}
+});
+/////////////////////////////////////////////////////////////////////////////////////////////////
+function getUniversitiesNearby(map, lat, lng, radius){
+$('[id ^=pfa_mainbundle_][id $=_targetPreference_universities]').empty();
+var position = {lat: lat, lng: lng};
+var service = new google.maps.places.PlacesService(map);
+service.nearbySearch({
+	location: position,
+	radius: radius,
+	types: ['university']
+}, getUniversitiesNearbyCallback);
+}
+function getUniversitiesNearbyCallback(results, status) {
+if (status === google.maps.places.PlacesServiceStatus.OK) {
+	for (var i = 0; i < results.length; i++) {
+		addUniversity(results[i]['place_id'], i)
+	}
+}
+}
+/////////////////////////////////////////////////////////////////////////////////////////////////
+</script>
+{% endblock %}

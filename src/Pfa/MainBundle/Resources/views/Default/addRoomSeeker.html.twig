@@ -1,0 +1,1067 @@
+{% extends "PfaMainBundle::layout.html.twig" %}
+{% set idTag %}{% spaceless %}{{ id }}{% endspaceless %}{% endset %}
+
+{% block title %}
+	{% if idTag == 'form-submit' %}Ajouter Une Annonce De Recherche - {% else %} Modifier Une Annonce de Recherceh - {% endif %} {{ parent() }}
+{% endblock %}
+
+{% block stylesheets %}
+	{{ parent() }}
+	<link href='https://cdnjs.cloudflare.com/ajax/libs/bootstrap-slider/6.0.7/css/bootstrap-slider.min.css' rel='stylesheet' type='text/css'>
+
+	<style>
+		.controls {
+  margin-top: 10px !important;
+  border: 1px solid transparent !important;
+  border-radius: 2px 0 0 2px !important;
+  box-sizing: border-box !important;
+  -moz-box-sizing: border-box !important;
+  height: 32px !important;
+  outline: none !important;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3) !important;
+}
+
+#pac-input {
+  background-color: #fff !important;
+  font-family: Roboto !important;
+  font-size: 15px !important;
+  font-weight: 300 !important;
+  margin-left: 12px !important;
+  padding: 0 11px 0 13px !important;
+  text-overflow: ellipsis !important;
+  width: 40% !important;
+}
+
+#slider-data {
+margin-left: 12px !important;	
+width: 80%;
+padding: 0 11px 0 13px !important;
+margin-top: 5px !important;
+    top: 0 !important;
+    left: initial !important;
+}
+
+#append-me {
+  background-color: #fff !important;
+  margin-left: 12px !important;
+  padding: 0 11px 0 13px !important;
+  text-overflow: ellipsis !important;
+  width: 40%;
+  margin-top: 10px !important;
+  border: 1px solid transparent !important;
+  border-radius: 2px 0 0 2px !important;
+  box-sizing: border-box !important;
+  -moz-box-sizing: border-box !important;
+  height: 32px !important;
+  outline: none !important;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3) !important;
+
+  font-family: Roboto !important;
+  font-size: 15px !important;
+  font-weight: 300 !important;
+  text-overflow: ellipsis !important;
+}
+
+
+#pac-input:focus {
+  border-color: #4d90fe !important;
+}
+
+.pac-container {
+  font-family: Roboto !important;
+}
+
+#type-selector {
+  color: #fff !important;
+  background-color: #4d90fe !important;
+  padding: 5px 11px 0px 11px !important;
+}
+
+#type-selector label {
+  font-family: Roboto !important;
+  font-size: 13px !important;
+  font-weight: 300 !important;
+}
+.tooltip-arrow{
+	display: none !important;
+}
+.slider .tooltip.top {
+    margin-top: 30px ! important;
+}
+..slider-handle{
+	background-image: none !important;
+}
+	</style>
+	{% endblock %}
+
+
+{% block body_decoration 'class="page-sub-page page-submit"'%}
+	{% block body %}
+		<!-- Breadcrumb -->
+		<div class="container">
+			<ol class="breadcrumb">
+				<li><a href="#">Home</a></li>
+				<li class="active">{% if idTag == 'form-submit' %}Ajouter Une Annonce De Recherche{% else %} Modifier Une Annonce de Recherceh{% endif %}</li>
+			</ol>
+		</div>
+		<!-- end Breadcrumb -->
+		<!-- Form -->
+		<div class="container">
+		<header><h1>{% if idTag == 'form-submit' %}Ajouter Une Annonce De Recherche{% else %} Modifier Une Annonce de Recherceh{% endif %}</h1></header>
+		<!-- SUPERFORM -->
+		{{ form_start(form, {'attr': {'role': 'form', 'id': idTag, 'class': 'form-submit'}}) }}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+		<div class="row">
+			<div class="block">
+				<div class="col-md-9 col-sm-9">
+					<section id="submit-form">
+						<section id="basic-information">
+							<header>
+								<h2>Information Génerale</h2>
+							</header>
+							<div class="row">
+								<div class="col-md-8">
+									<div class="form-group">
+										{{ form_label(form.advertTitle) }}
+										{{ form_widget(form.advertTitle, { 'attr': {'class': 'form-control'} }) }}
+										{{ form_errors(form.advertTitle) }}
+									</div>
+									<!-- /.form-group -->
+								</div>
+								<div class="col-md-4">
+									<div class="form-group">
+										{{ form_label(form.budget) }}
+										{{ form_widget(form.budget) }}
+										{{ form_errors(form.budget) }}
+									</div>
+									<!-- /.form-group -->
+								</div>
+							</div>
+							<div class="row">
+								<div class="col-md-4">
+									<div class="form-group">
+										{{ form_label(form.advertiserPhone) }}
+										{{ form_widget(form.advertiserPhone, { 'attr': {'class': 'form-control'} }) }}
+										{{ form_errors(form.advertiserPhone) }}
+									</div>
+								</div>
+
+								<div class="col-md-4">
+									<div class="form-group">
+										{{ form_label(form.periodeToStay) }}
+										{{ form_widget(form.periodeToStay) }}
+										{{ form_errors(form.periodeToStay) }}
+									</div>
+								</div>
+
+								<div class="col-md-4">
+									<div class="form-group">
+										{{ form_label(form.availableDate) }}
+										{{ form_widget(form.availableDate) }}
+										{{ form_errors(form.availableDate) }}
+									</div>
+								</div>
+							</div>
+							<div class="form-group">
+								{{ form_label(form.advertDescription) }}
+								{{ form_widget(form.advertDescription, { 'attr': {'class': 'form-control', 'rows': '8'} }) }}
+								{{ form_errors(form.advertDescription) }}
+							</div>
+							<!-- /.form-group -->
+						</section>
+						<!-- /#basic-information -->
+					</section>
+				</div>
+				<!-- /.col-md-9 -->
+				<div class="col-md-3 col-sm-3">
+					<aside class="submit-step">
+					<figure class="step-number">1</figure>
+					<div class="description">
+						<h4>Enter Information About Property</h4>
+						<p>Type information about your property. Be descriptive.
+						</p>
+					</div>
+				</aside>
+				<!-- /.submit-step -->
+			</div>
+			<!-- /.col-md-3 -->
+		</div>
+	</div>
+	<!-- /.row -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	<div class="row">
+		<div class="col-md-9 col-sm-9">
+			<div class="row">
+				<div class="col-md-12">
+					<section id="place-on-map">
+						<header class="section-title">
+							<h2>Adresse Souhaité</h2>
+						</header>
+						<div class="row">
+							<div class="col-md-12 col-sm-12">
+								<div class="form-group">
+									{{ form_label(form.town) }}
+									{{ form_widget(form.town) }}
+									{{ form_errors(form.town) }}
+								</div>
+							</div>
+						</div>
+					</section>
+				</div>
+				<div class="col-md-12">
+					<div class="form-group">
+						<label>Selectionné votre Adresse Souhaité</label>
+						<span class="link-arrow geo-location pull-right">Get My Position</span>
+						<div id="inputWrapper">
+    						<input id="pac-input" class="controls" type="text" placeholder="Search Box">
+						</div>
+    					<div id="submit-map"></div>
+					</div>
+				</div>
+
+
+			</div>
+		</div>
+	</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	<div class="row">
+			<div class="col-md-9 col-sm-9">
+				<section id="property-features">
+					<header>
+						<h2>Propriété souhaité Features</h2>
+					</header>
+					<ul class="submit-features">
+						<li>
+							<div class="checkbox">
+								<label>
+									{{ form_widget(form.featureTv) }}
+									{{ form_label(form.featureTv) }}
+								</label>
+							</div>
+						</li>
+						<li>
+							<div class="checkbox">
+								<label>
+									{{ form_widget(form.featureGardenTerrace) }}
+									{{ form_label(form.featureGardenTerrace) }}
+								</label>
+							</div>
+						</li>
+						<li>
+							<div class="checkbox">
+								<label>
+									{{ form_widget(form.featureParcking) }}
+									{{ form_label(form.featureParcking) }}
+								</label>
+							</div>
+						</li>
+						<li>
+							<div class="checkbox">
+								<label>
+									{{ form_widget(form.featureFurnished) }}
+									{{ form_label(form.featureFurnished) }}
+								</label>
+							</div>
+						</li>
+						<li>
+							<div class="checkbox">
+								<label>
+									{{ form_widget(form.featureWifi) }}
+									{{ form_label(form.featureWifi) }}
+								</label>
+							</div>
+						</li>
+					</ul>
+				</section>
+				<hr/>
+			</div>
+	</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="row">
+<div class="block">
+<div class="col-md-9 col-sm-9">
+	<div class="row">
+		<div class="col-md-12 col-sm-12">
+			<section id="pref-current">
+				<header>
+					<h2>Preference des futurs collocataires</h2>
+				</header>
+				<div class="row">
+					<div class="col-md-6 col-sm-6">
+						<div class="form-group">
+							{{ form_label(form.targetPreference.ageMin) }}
+							{{ form_widget(form.targetPreference.ageMin) }}
+							{{ form_errors(form.targetPreference.ageMin) }}
+						</div>
+						<!-- /.form-group -->
+					</div>
+					<!-- /.col-md-6 -->
+					<div class="col-md-6 col-sm-6">
+						<div class="form-group">
+							{{ form_label(form.targetPreference.ageMax) }}
+							{{ form_widget(form.targetPreference.ageMax) }}
+							{{ form_errors(form.targetPreference.ageMax) }}
+						</div>
+						<!-- /.form-group -->
+					</div>
+					<!-- /.col-md-6 -->
+				</div>
+				<div class="form-group">
+					{{ form_label(form.targetPreference.gender) }}
+					{{ form_widget(form.targetPreference.gender) }}
+					{{ form_errors(form.targetPreference.gender) }}
+				</div>
+				<!-- /.row -->
+				<div class="row">
+					<div class="col-md-6 col-sm-6">
+						<div class="form-group">
+							<ul class="submit-features">
+								<li>
+									<div class="checkbox">
+										<label>
+											{{ form_widget(form.targetPreference.smocker) }}
+											{{ form_label(form.targetPreference.smocker) }}
+										</label>
+									</div>
+								</li>
+							</ul>
+						</div>
+						<!-- /.form-group -->
+					</div>
+					<!-- /.col-md-6 -->
+					<div class="col-md-6 col-sm-6">
+						<div class="form-group">
+							<ul class="submit-features">
+								<li>
+									<div class="checkbox">
+										<label>
+											{{ form_widget(form.targetPreference.pet) }}
+											{{ form_label(form.targetPreference.pet) }}
+										</label>
+									</div>
+								</li>
+							</ul>
+						</div>
+						<!-- /.form-group -->
+					</div>
+					<!-- /.col-md-6 -->
+				</div>
+				<!-- /.row -->
+			</section>
+			<!-- /#summary -->
+		</div>
+		<!-- /.col-md-6 -->
+		<!-- /.block -->
+	</div>
+	<hr/>
+</div>
+<div class="col-md-3 col-sm-3">
+	<aside class="submit-step">
+	<figure class="step-number">3</figure>
+	<div class="description">
+		<h4>Enter Information About Property</h4>
+		<p>Type information about your property. Be descriptive.
+		</p>
+	</div>
+</aside>
+</div>
+</div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="row">
+<div class="block">
+<div class="col-md-9 col-sm-9">
+	<div class="row">
+		<div class="col-md-12 col-sm-12">
+			<section>
+				<header>
+					<h2>Preference des Collocataires courrants</h2>
+				</header>
+				
+
+				<div class="row">
+					<div class="col-md-12 col-sm-12">
+						<div class="form-group">
+							{{ form_label(form.numberOfSeekers) }}
+							{{ form_widget(form.numberOfSeekers) }}
+							{{ form_errors(form.numberOfSeekers) }}
+						</div>
+					</div>
+				</div>
+
+
+
+
+
+
+
+
+
+
+				<div class="row" id="room-age-self-seeker">
+					<div class="col-md-6 col-sm-6">
+						<div class="form-group">
+							{{ form_label(form.selfPreference.ageMin) }}
+							{{ form_widget(form.selfPreference.ageMin) }}
+							{{ form_errors(form.selfPreference.ageMin) }}
+						</div>
+						<!-- /.form-group -->
+					</div>
+					<!-- /.col-md-6 -->
+					<div class="col-md-6 col-sm-6">
+						<div class="form-group">
+							{{ form_label(form.selfPreference.ageMax) }}
+							{{ form_widget(form.selfPreference.ageMax) }}
+							{{ form_errors(form.selfPreference.ageMax) }}
+						</div>
+						<!-- /.form-group -->
+					</div>
+					<!-- /.col-md-6 -->
+					<div class="col-md-12 col-sm-12">
+					<div class="form-group">
+						{{ form_label(form.selfPreference.ageSolo) }}
+						{{ form_widget(form.selfPreference.ageSolo) }}
+						{{ form_errors(form.selfPreference.ageSolo) }}
+					</div>
+				</div>
+				</div>
+				
+
+
+
+
+
+
+
+
+
+
+
+
+
+				<div class="row">
+					<div class="col-md-12 col-sm-12">
+						<div class="form-group">
+							{{ form_label(form.universitiesNotMapped) }} <i class="fa fa-question-circle tool-tip"  data-toggle="tooltip" data-placement="right" title="Ajouter Des Univérsités Séparé Par Des Virgules."></i>
+							{{ form_widget(form.universitiesNotMapped, { 'attr': {'class': 'form-control'} }) }}
+						</div>
+					</div>
+				</div>
+
+
+
+
+
+
+
+
+
+				<div class="row">
+					<div class="col-md-6 col-sm-6">
+						<div class="form-group">
+							<ul class="submit-features">
+								<li>
+									<div class="checkbox">
+										<label>
+											{{ form_widget(form.selfPreference.smocker) }}
+											{{ form_label(form.selfPreference.smocker) }}
+										</label>
+									</div>
+								</li>
+							</ul>
+						</div>
+						<!-- /.form-group -->
+					</div>
+					<!-- /.col-md-6 -->
+					<div class="col-md-6 col-sm-6">
+						<div class="form-group">
+							<ul class="submit-features">
+								<li>
+									<div class="checkbox">
+										<label>
+											{{ form_widget(form.selfPreference.pet) }}
+											{{ form_label(form.selfPreference.pet) }}
+										</label>
+									</div>
+								</li>
+							</ul>
+						</div>
+						<!-- /.form-group -->
+					</div>
+					<!-- /.col-md-6 -->
+				</div>
+
+
+
+
+				<!-- /.row -->
+			</section>
+			<!-- /#summary -->
+		</div>
+		<!-- /.col-md-6 -->
+		<!-- /.block -->
+	</div>
+
+
+
+
+	<hr/>
+</div>
+<div class="col-md-3 col-sm-3">
+	<aside class="submit-step">
+	<figure class="step-number">4</figure>
+	<div class="description">
+		<h4>Enter Information About Property</h4>
+		<p>Type information about your property. Be descriptive.
+		</p>
+	</div>
+</aside>
+</div>
+</div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="row">
+<div class="block">
+<div class="col-md-9 col-sm-9">
+	<div class="row">
+		<div class="col-md-12 col-sm-12">
+			<section>
+				<header>
+					<h2>Vos Photos</h2>
+				</header>
+				<div class="row">
+<div class="col-md-12 col-sm-12">
+	<div class="center">
+		<div class="form-group">
+
+			{{ form_widget(form.album.uploadedFiles, { 'attr': {'class': 'file', 'id': 'file-upload', 'data-show-upload': 'false', 'data-show-caption': 'false', 'data-show-remove': 'false', 'accept': 'image/jpeg,image/png', 'data-browse-class': 'btn btn-default', 'data-browse-label': 'Parcourir Les Photos'} }) }}
+			<figure class="note"><strong>Hint:</strong> You can upload all images at once!</figure>
+	</div>
+</div>
+</div>
+</div>
+			</section>
+		</div>
+	</div>
+	<hr/>
+</div>
+<div class="col-md-3 col-sm-3">
+	<aside class="submit-step">
+	<figure class="step-number">3</figure>
+	<div class="description">
+		<h4>Enter Information About Property</h4>
+		<p>Type information about your property. Be descriptive.
+		</p>
+	</div>
+</aside>
+</div>
+</div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="row" id="submit-button">
+<div class="block">
+<div class="col-md-9 col-sm-9">
+<div class="center">
+<div class="form-group">
+<button type="submit" class="btn btn-default large">Sauvgarder L'annocne</button>
+</div>
+<!-- /.form-group -->
+<figure class="note block">By clicking the “Proceed to Payment” or “Submit” button you agree with our <a href="terms-conditions.html">Terms and conditions</a></figure>
+</div>
+</div>
+<div class="col-md-3 col-sm-3">
+<aside class="submit-step">
+<figure class="step-number">5</figure>
+<div class="description">
+<h4>Review Information and Proceed to Payment</h4>
+<p>Carefully check entered information and than click button to submit them.
+</p>
+</div>
+</aside>
+<!-- /.submit-step -->
+</div>
+<!-- /.col-md-3 -->
+</div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+{{ form_widget(form.gmapLat) }}
+{{ form_widget(form.gmapLng) }}
+{{ form_widget(form.targetPreference.universities) }}
+{% do form.selfPreference.gender.setRendered %}
+{% do form.selfPreference.universities.setRendered %}
+{% do form.radius.setRendered %}
+{{ form_end(form) }}
+<!-- /#form-submit -->
+<!-- ENDSUPERFORM -->
+</div>
+<!-- End Form -->
+{% endblock %}
+
+
+
+
+
+{% block javascripts %}
+{{ parent() }}
+
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-slider/6.0.7/bootstrap-slider.min.js"></script>
+
+<script>
+
+
+
+
+
+
+/////////////////////////////////////////////////////////////////////////////////////
+$('#pfa_mainbundle_roomseeker_universitiesNotMapped').tagsInput({width:'auto'});
+$('[id ^=pfa_mainbundle_][id $=_targetPreference_universities]').attr('style', 'display: none;');
+$('[id ^=pfa_mainbundle_][id $=_gmapLat]').attr('style', 'display: none;');
+$('[id ^=pfa_mainbundle_][id $=_gmapLng]').attr('style', 'display: none;');
+///////////////////////////////////////////////////////////////////////////////////////////
+var now = new Date();
+var day = ("0" + now.getDate()).slice(-2);
+var month = ("0" + (now.getMonth() + 1)).slice(-2);
+var today = now.getFullYear()+"-"+(month)+"-"+(day) ;
+$('#pfa_mainbundle_roomseeker_availableDate').val(today);
+///////////////////////////////////////////////////////////////////////////////////////////
+	if (($('#form-submit-edit').length) || ($('.error').length > 0))
+	{
+		var _latitude = parseFloat($('#pfa_mainbundle_roomseeker_gmapLat').val());
+		var _longitude = parseFloat($('#pfa_mainbundle_roomseeker_gmapLng').val());
+	} 
+	else
+	{
+		var _latitude = 36.98861021318873;
+		var _longitude = 10.165137329101526;
+	}
+	google.maps.event.addDomListener(window, 'load', initSubmitMap(_latitude,_longitude));
+
+	function initSubmitMap(_latitude,_longitude){
+
+
+		var mapCenter = new google.maps.LatLng(_latitude,_longitude);
+		var mapOptions = {
+			zoom: 12,
+			center: mapCenter,
+			styles: mapStyles,
+			disableDefaultUI: false
+};
+
+
+var mapElement = document.getElementById('submit-map');
+
+map = new google.maps.Map(mapElement, mapOptions);
+
+
+if ($('#pac-input').length == 0) {
+	var pacinput = '<input id="pac-input" class="controls" type="text" placeholder="Search Box">';
+    $('#inputWrapper').append(pacinput);
+};
+
+
+var marker = new MarkerWithLabel({
+position: mapCenter,
+map: map,
+icon: "{{ asset('assets/img/marker.png') }}",
+labelAnchor: new google.maps.Point(50, 0),
+draggable: true
+});
+
+
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+if($('#pfa_mainbundle_roomseeker_radius').length) $('#pfa_mainbundle_roomseeker_radius').remove();
+
+			{% if idTag == 'form-submit-edit' %}
+			var sliderClone = '<div id="append-me"><div id="rayon" style="float: left;margin-top: 4px">Rayon</div><input id="pfa_mainbundle_roomseeker_radius" data-slider-id="slider-data" type="text" data-slider-min="1" data-slider-max="30" data-slider-step="0.1" data-slider-value="{{ radius }}" name="pfa_mainbundle_roomseeker[radius]"/></div>';
+			{% else %}
+			if ($('.error').length){
+				var sliderClone = '<div id="append-me"><div id="rayon" style="float: left;margin-top: 4px">Rayon</div><input id="pfa_mainbundle_roomseeker_radius" data-slider-id="slider-data" type="text" data-slider-min="1" data-slider-max="30" data-slider-step="0.1" data-slider-value="{{ form.vars.value.radius }}" name="pfa_mainbundle_roomseeker[radius]"/></div>';
+			} else {
+				var sliderClone = '<div id="append-me"><div id="rayon" style="float: left;margin-top: 4px">Rayon</div><input id="pfa_mainbundle_roomseeker_radius" data-slider-id="slider-data" type="text" data-slider-min="1" data-slider-max="30" data-slider-step="0.1" data-slider-value="2" name="pfa_mainbundle_roomseeker[radius]"/></div>';
+			}
+			{% endif %}
+
+
+
+
+			$('#inputWrapper').append(sliderClone);
+			$('#pfa_mainbundle_roomseeker_radius').slider({
+				formatter: function(value) {
+				return value + ' Km';
+				}
+			});
+
+var radiusCircle = new google.maps.Circle({
+      strokeColor: '#1396e2',
+      strokeOpacity: 0,
+      strokeWeight: 0,
+      fillColor: '#1396e2',
+      fillOpacity: 0.35,
+      map: map,
+      center: marker.getPosition(),
+      radius: $('#pfa_mainbundle_roomseeker_radius').slider('getValue') * 1000
+    });
+
+$("#pfa_mainbundle_roomseeker_radius").on("slide", function(slideEvt) {
+	console.log(slideEvt.value);
+	radiusCircle.setRadius(slideEvt.value * 1000);
+});
+google.maps.event.addListener(marker, "drag", function (event) {
+	radiusCircle.setCenter(this.position);
+	});
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+$('#submit-map').removeClass('fade-map');
+
+
+
+
+
+google.maps.event.addListener(marker, "mouseup", function (event) {
+var latitude = this.position.lat();
+var longitude = this.position.lng();
+$('#pfa_mainbundle_room_gmapLat').val( this.position.lat() );
+$('#pfa_mainbundle_room_gmapLng').val( this.position.lng() );
+getUniversitiesNearby(map, this.position.lat(), this.position.lng(), 5000);
+
+});
+
+
+
+
+
+// Autocomplete
+var input = /** @type {HTMLInputElement} */( document.getElementById('pac-input') );
+map.controls[google.maps.ControlPosition.TOP_LEFT].push(input);
+var slider = document.getElementById('append-me');
+map.controls[google.maps.ControlPosition.TOP_LEFT].push(slider);
+
+var autocomplete = new google.maps.places.Autocomplete(input);
+autocomplete.bindTo('bounds', map);
+
+
+
+
+google.maps.event.addListener(autocomplete, 'place_changed', function() {
+var place = autocomplete.getPlace();
+if (!place.geometry) {
+	return;
+}
+if (place.geometry.viewport) {
+	map.fitBounds(place.geometry.viewport);
+} else {
+	map.setCenter(place.geometry.location);
+	map.setZoom(13);
+}
+
+marker.setPosition(place.geometry.location);
+marker.setVisible(true);
+radiusCircle.setCenter(marker.getPosition());
+$('#pfa_mainbundle_roomseeker_gmapLat').val( marker.getPosition().lat() );
+$('#pfa_mainbundle_roomseeker_gmapLng').val( marker.getPosition().lng() );
+getUniversitiesNearby(map, marker.getPosition().lat(), marker.getPosition().lng(), 5000);
+
+
+var address = '';
+if (place.address_components) {
+	address = [
+	(place.address_components[0] && place.address_components[0].short_name || ''),
+	(place.address_components[1] && place.address_components[1].short_name || ''),
+	(place.address_components[2] && place.address_components[2].short_name || '')
+	].join(' ');
+}
+});
+}
+//////////////////////////////////////////////////////////////////////////////////////////////
+if (($('#form-submit').length) && $('.error').length == 0)
+{
+google.maps.event.addListenerOnce(map, 'idle', function(){
+getCurrentPosition();
+});
+}
+//////////////////////////////////////////////////////////////////////////////////////////////
+function success(position) {
+initSubmitMap(position.coords.latitude, position.coords.longitude);
+$('#pfa_mainbundle_roomseeker_gmapLat').val( position.coords.latitude );
+$('#pfa_mainbundle_roomseeker_gmapLng').val( position.coords.longitude );
+
+getUniversitiesNearby(map, position.coords.latitude, position.coords.longitude, 5000);
+}
+
+
+
+function getCurrentPosition(){
+if (navigator.geolocation) {
+	$('#submit-map').addClass('fade-map');
+	navigator.geolocation.getCurrentPosition(success);
+} else {
+	error('Geo Location is not supported');
+}
+}
+
+
+
+$('.geo-location').on("click", function() {
+if (navigator.geolocation) {
+	$('#submit-map').addClass('fade-map');
+	navigator.geolocation.getCurrentPosition(success);
+} else {
+	error('Geo Location is not supported');
+}
+});
+/////////////////////////////////////////////////////////////////////////////////////////////////
+function getUniversitiesNearby(map, lat, lng, radius){
+$('[id ^=pfa_mainbundle_][id $=_targetPreference_universities]').empty();
+var position = {lat: lat, lng: lng};
+var service = new google.maps.places.PlacesService(map);
+service.nearbySearch({
+	location: position,
+	radius: radius,
+	types: ['university']
+}, getUniversitiesNearbyCallback);
+}
+function getUniversitiesNearbyCallback(results, status) {
+if (status === google.maps.places.PlacesServiceStatus.OK) {
+	for (var i = 0; i < results.length; i++) {
+		addUniversity(results[i]['place_id'], i)
+	}
+}
+}
+/////////////////////////////////////////////////////////////////////////////////////////////////
+</script>
+{% endblock %}

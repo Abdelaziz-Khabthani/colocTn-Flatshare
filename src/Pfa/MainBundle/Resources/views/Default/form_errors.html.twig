@@ -1,0 +1,7 @@
+{% block form_errors -%}
+    {% if errors|length > 0 -%}
+        {%- for error in errors -%}
+            <label for="form-contact-name" class="error">{{ error.message }}</label>
+        {%- endfor -%}
+    {%- endif %}
+{%- endblock form_errors %}

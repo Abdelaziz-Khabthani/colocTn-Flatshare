@@ -1,0 +1,243 @@
+{% extends "PfaMainBundle::layout.html.twig" %}
+
+{% block title %}
+	Recherche - {{ parent() }}
+{% endblock %}
+
+{% block stylesheets %}
+	{{ parent() }}
+{% endblock %}
+
+{% if target is same as('roomseeker') %}
+	{% set type = 'RoomSeeker' %}
+		{% elseif (target is same as('room')) or (target is same as('collocation')) %}
+		{% set type = 'Room' %}
+			{% elseif target is same as('wholeproperty')  %}
+			{% set type = 'WholeProperty' %}
+			{% endif %}
+
+			{% block body_decoration 'class="page-sub-page page-listing page-grid page-search-results"'%}
+
+			{% block body %}
+				<!-- Breadcrumb -->
+				<div class="container">
+					<ol class="breadcrumb">
+						<li><a href="#">Home</a></li>
+						<li class="active">Resultats De Recherche</li>
+					</ol>
+				</div>
+				<!-- end Breadcrumb -->
+
+				<div class="container">
+					<div class="row">
+						<!-- Results -->
+						<div class="col-md-9 col-sm-9">
+							<section id="results">
+								<header><h1>Liste Des {% if target == 'roomseeker' %}Chercheurs{% elseif target == 'collocation' %}Chambres à partager{% elseif target == 'room' %}Chambre à louer {% elseif target == 'wholeproperty' %}Biens entier{% endif %}</h1></header>
+								<section id="search-filter">
+									<figure>
+										<h3><i class="fa fa-search"></i>Search Results:</h3>
+										<span class="search-count">{{ searchResult }}</span>
+
+										<div class="sorting">
+											<div class="form-group">
+												<select name="sorting">
+													<option value="">Sort By</option>
+													<option value="1">Lowest price first</option>
+													<option value="2">Highest price first</option>
+													<option value="3">Date added</option>
+												</select>
+											</div><!-- /.form-group -->
+										</div>
+
+									</figure>
+								</section>
+
+								<section id="properties">
+									
+									{% for advert in adverts %}
+										{% if loop.index % 3 == 1 %}
+											<div class="row">
+											{% endif %}
+											<div class="col-md-4 col-sm-4">
+												<div class="property">
+
+													{% if advert.featured %}<figure class="ribbon">Featured</figure>{% endif %}
+
+														{% if not target is same as('roomseeker') %}
+															{% if advert.propertyType.name is same as('Appartemant') %}
+																<figure class="type" title="Appartemant"><img src="{{ asset('assets/img/property-types/apartment.png') }}" alt=""></figure>
+																{% elseif advert.propertyType.name is same as('Villa') %}
+																<figure class="type" title="Appartemant"><img src="{{ asset('assets/img/property-types/cottage.png') }}" alt=""></figure>
+																{% elseif advert.propertyType.name is same as('Studio') %}
+																<figure class="type" title="Appartemant"><img src="{{ asset('assets/img/property-types/warehouse.png') }}" alt=""></figure>
+															{% endif %}
+														{% endif %}
+
+														{% if target is same as('roomseeker') %}
+															<a href="{{ path('show_room_seeker', { 'id': advert.id }) }}">
+														{% elseif (target is same as('room')) or (target is same as('collocation')) %}
+															<a href="{{ path('show_room', { 'id': advert.id }) }}">
+														{% elseif target is same as('wholeproperty') %}
+															<a href="{{ path('show_whole_property', { 'id': advert.id }) }}">
+														{% endif %}
+
+															<div class="property-image">
+																{% for photo in advert.album.photos %}
+																	{% if loop.first %}
+																		<img alt="" src="{{ ('/uploads/photos/' ~ photo.path) | imagine_filter('thumb') }}">
+																	{% endif %}
+																{% endfor %}
+															</div>
+
+															{% if target is same as('roomseeker') %}
+																<div class="overlay">
+																	<div class="info">
+																		<div class="tag price">TND {{ advert.budget }}</div>
+																		<h3>{{ advert.advertTitle }}</h3>
+																		<figure>Cherche à {{ advert.town.name }}</figure>
+																	</div>
+																	<ul class="additional-info">
+																		<li>
+																			<header>Chercheur</header>
+																			<figure>{{ advert.numberOfSeekers }}</figure>
+																		</li>
+																		<li>
+																			<header>Sexe</header>
+																			<figure>{{ advert.targetPreference.gender.name }}</figure>
+																		</li>
+																		<li>
+																			<header>Fumeur</header>
+																			<figure>{% if advert.selfPreference.smocker %}<span class="glyphicon glyphicon-ok" style="color: green;"></span>{% else %}<span class="glyphicon glyphicon-remove" style="color: red;">{% endif %}</figure>
+																		</li>
+																		<li>
+																			<header>Age</header>
+																			<figure>{% if advert.numberOfSeekers == 1 %}{{ advert.selfPreference.ageSolo }}{% else %}{{ advert.selfPreference.ageMin }} à {{ advert.selfPreference.ageMax }}{% endif %}</figure>
+																		</li>
+																	</ul>
+																</div>
+																{% elseif target is same as('room') %}
+																<div class="overlay">
+																	<div class="info">
+																		<div class="tag price">{{ advert.numberOfRoomsToRent }} chambres à louer</div>
+																		<h3>{{ advert.advertTitle }}</h3>
+																		<figure>{{ advert.street }}</figure>
+																	</div>
+																	<ul class="additional-info">
+																		<li>
+																			<header>Sexe</header>
+																			<figure>{{ advert.targetPreference.gender.name }}</figure>
+																		</li>
+																		<li>
+																			<header>WIFI</header>
+																			<figure>{% if advert.featureWifi %}<span class="glyphicon glyphicon-ok" style="color: green;"></span>{% else %}<span class="glyphicon glyphicon-remove" style="color: red;">{% endif %}</figure>
+																		</li>
+																		<li>
+																			<header>Meublée</header>
+																			<figure>{% if advert.featureFurnished %}<span class="glyphicon glyphicon-ok" style="color: green;"></span>{% else %}<span class="glyphicon glyphicon-remove" style="color: red;">{% endif %}</figure>
+																		</li>
+																		<li>
+																			<header>TV</header>
+																			<figure>{% if advert.featureTv %}<span class="glyphicon glyphicon-ok" style="color: green;"></span>{% else %}<span class="glyphicon glyphicon-remove" style="color: red;">{% endif %}</figure>
+																		</li>
+																	</ul>
+																</div>
+																{% elseif target is same as('collocation') %}
+																<div class="overlay">
+																	<div class="info">
+																		<div class="tag price">{{ advert.numberOfRoomsToRent }} chambres à partager</div>
+																		<h3>{{ advert.advertTitle }}</h3>
+																		<figure>{{ advert.street }}</figure>
+																	</div>
+																	<ul class="additional-info">
+																		<li>
+																			<header>Sexe</header>
+																			<figure>{{ advert.targetPreference.gender.name }}</figure>
+																		</li>
+																		<li>
+																			<header>WIFI</header>
+																			<figure>{% if advert.featureWifi %}<span class="glyphicon glyphicon-ok" style="color: green;"></span>{% else %}<span class="glyphicon glyphicon-remove" style="color: red;">{% endif %}</figure>
+																		</li>
+																		<li>
+																			<header>Meublée</header>
+																			<figure>{% if advert.featureFurnished %}<span class="glyphicon glyphicon-ok" style="color: green;"></span>{% else %}<span class="glyphicon glyphicon-remove" style="color: red;">{% endif %}</figure>
+																		</li>
+																		<li>
+																			<header>TV</header>
+																			<figure>{% if advert.featureTv %}<span class="glyphicon glyphicon-ok" style="color: green;"></span>{% else %}<span class="glyphicon glyphicon-remove" style="color: red;">{% endif %}</figure>
+																		</li>
+																	</ul>
+																</div>
+																{% elseif target is same as('wholeproperty') %}
+																<div class="overlay">
+																	<div class="info">
+																		<div class="tag price">TND {{ advert.price }}</div>
+																		<h3>{{ advert.advertTitle }}</h3>
+																		<figure>{{ advert.street }}</figure>
+																	</div>
+																	<ul class="additional-info">
+																		<li>
+																			<header>Chambre</header>
+																			<figure>{{ advert.numberOfTotalRooms }}</figure>
+																		</li>
+																		<li>
+																			<header>WIFI</header>
+																			<figure>{% if advert.featureWifi %}<span class="glyphicon glyphicon-ok" style="color: green;"></span>{% else %}<span class="glyphicon glyphicon-remove" style="color: red;">{% endif %}</figure>
+																		</li>
+																		<li>
+																			<header>Meublée</header>
+																			<figure>{% if advert.featureFurnished %}<span class="glyphicon glyphicon-ok" style="color: green;"></span>{% else %}<span class="glyphicon glyphicon-remove" style="color: red;">{% endif %}</figure>
+																		</li>
+																		<li>
+																			<header>TV</header>
+																			<figure>{% if advert.featureTv %}<span class="glyphicon glyphicon-ok" style="color: green;"></span>{% else %}<span class="glyphicon glyphicon-remove" style="color: red;">{% endif %}</figure>
+																		</li>
+																	</ul>
+																</div>
+															{% endif %}
+														</a>
+													</div><!-- /.property -->
+												</div><!-- /.col-md-3 -->
+												{% if (loop.index % 3 == 0) or (loop.last == true) %}
+												</div>
+											{% endif %}
+										{% endfor %}
+									</section><!-- /#properties-->
+									<!-- Pagination -->
+									<div class="center">
+										<ul class="pagination">
+											{% for i in 1..nbPages %}
+												{% if i == page %}
+													<li class="active"><a href="{{ path('list_search', {'page': i, 'target': target, 'town': app.request.get('town'),'gender': app.request.get('gender'), 'budget': app.request.get('budget') }) }}">{{ i }}</a></li>
+													{% else %}
+													<li><a href="{{ path('list_search', {'page': i, 'target': target, 'town': app.request.get('town'),'gender': app.request.get('gender'), 'budget': app.request.get('budget') }) }}">{{ i }}</a></li>
+												{% endif %}
+											{% endfor %}
+										</ul><!-- /.pagination-->
+									</div><!-- /.center-->
+								</section><!-- /#results -->
+							</div><!-- /.col-md-9 -->
+							<!-- end Results -->
+
+							<!-- sidebar -->
+							<div class="col-md-3 col-sm-3">
+								<section id="sidebar">
+									{% include 'PfaMainBundle:Search:searchWidget.html.twig' %}
+									{{ render(controller('PfaMainBundle:Widget:featuredAdverts', { 'limit': 3, 'type': type })) }}
+								</section><!-- /#sidebar -->
+							</div><!-- /.col-md-3 -->
+							<!-- end Sidebar -->
+						</div><!-- /.row -->
+					</div><!-- /.container -->
+					
+				{% endblock %}
+
+				{% block javascripts %}
+					{{ parent() }}
+					<script type="text/javascript" src="{{ asset('assets/js/jshashtable-2.1_src.js') }}"></script>
+					<script type="text/javascript" src="{{ asset('assets/js/tmpl.js') }}"></script>
+					<script type="text/javascript" src="{{ asset('assets/js/jquery.dependClass-0.1.js') }}"></script>
+					<script type="text/javascript" src="{{ asset('assets/js/draggable-0.1.js') }}"></script>
+					<script type="text/javascript" src="{{ asset('assets/js/jquery.slider.js') }}"></script>
+					<script type="text/javascript" src="{{ asset('assets/js/jquery.numberformatter-1.2.3.js') }}"></script>
+				{% endblock %}

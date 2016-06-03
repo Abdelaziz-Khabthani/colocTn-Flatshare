@@ -1,0 +1,312 @@
+{% extends "PfaMainBundle::layout.html.twig" %}
+{% block title %}
+	Afficher Whole Property - {{ parent() }}
+{% endblock %}
+{% block body_decoration 'class="page-sub-page page-property-detail"'%}
+{% block body %}
+	<!-- _________________________________________________________________________________________________________________ -->
+	<!-- Breadcrumb -->
+	<div class="container">
+		<ol class="breadcrumb">
+			<li><a href="#">Home</a></li>
+			<li class="active">Maison Entier Detaille</li>
+		</ol>
+	</div>
+	<!-- end Breadcrumb -->
+	<!-- _________________________________________________________________________________________________________________ -->
+	<div class="container">
+		<div class="row">
+			<!-- _________________________________________________________________________________________________________________ -->
+			<!-- Property Detail Content -->
+			<div class="col-md-9 col-sm-9">
+				<section id="property-detail">
+					<!-- _________________________________________________________________________________________________________________ -->
+					<header class="property-title">
+						<h1>{{ advert.advertTitle }}</h1>
+						<figure>{{ advert.town.name }}, {{ advert.postcode }}</figure>
+						<span class="actions">
+							<a href="#" class="bookmark" data-bookmark-state="empty"><span class="title-add">Add to bookmark</span><span class="title-added">Added</span></a>
+						</span>
+					</header>
+					<!-- _________________________________________________________________________________________________________________ -->
+					<section id="property-gallery">
+						<div class="owl-carousel property-carousel">
+							{% for photo in advert.album.photos %}
+								<div class="property-slide">
+									<a href="{{ asset('uploads/photos/' ~ photo.path) }}" class="image-popup">
+										<div class="overlay"><h3>Front View</h3></div>
+										<img alt="" src="{{ asset('uploads/photos/' ~ photo.path) }}">
+									</a>
+								</div><!-- /.property-slide -->
+							{% endfor %}
+						</div><!-- /.property-carousel -->
+					</section>
+					<!-- _________________________________________________________________________________________________________________ -->
+					<div class="row">
+						<!-- _________________________________________________________________________________________________________________ -->
+						<div class="col-md-4 col-sm-12">
+							<section id="quick-summary" class="clearfix">
+								<header><h2>Resumé</h2></header>
+								<h3>Genrale</h3>
+								<dl>
+									<dt>Code</dt>
+									<dd>#{{ advert.id ~ '1' }}</dd>
+									<dt>Location</dt>
+									<dd>{{ advert.street }}</dd>
+									<dt>Price</dt>
+									<dd>{{ advert.price }} <b>TND</b></dd>
+									<dt>Property Type:</dt>
+									<dd>{{ advert.propertyType.name }}</dd>
+									<dt>Available Date:</dt>
+									<dd>{{ advert.availableDate|date('Y-m-d') }}</dd>
+									<dt>N° Des chambres:</dt>
+									<dd>{{ advert.numberOfTotalRooms }}</dd>
+									<dt>Minimum Stay:</dt>
+									<dd>{{ advert.minimumStay }} mois</dd>
+									<dt>Maximum Stay:</dt>
+									<dd>{{ advert.maximumStay }} mois</dd>
+								</dl>
+								<hr style="border-top: dashed 1px #BBBBBB;" />
+								<h3>Nouveaux Arrivées</h3>
+								<dl>
+									<dt>Sexe</dt>
+									<dd>{{ advert.targetPreference.gender.name }}</dd>
+									<dt>Age</dt>
+									<dd>{{ advert.targetPreference.ageMin }} à {{ advert.targetPreference.ageMax }}</dd>
+									<dt>Fumeurs</dt>
+									<dd>{% if advert.targetPreference.smocker %}<span class="glyphicon glyphicon-ok" style="color: green;"></span>{% else %}<span class="glyphicon glyphicon-remove" style="color: red;">{% endif %}</dd>
+									<dt>Animaux De Compagnie</dt>
+									<dd>{% if advert.targetPreference.pet %}<span class="glyphicon glyphicon-ok" style="color: green;"></span>{% else %}<span class="glyphicon glyphicon-remove" style="color: red;">{% endif %}</dd>
+								</dl>
+							</section><!-- /#quick-summary -->
+						</div><!-- /.col-md-4 -->
+						<!-- _________________________________________________________________________________________________________________ -->
+						<div class="col-md-8 col-sm-12">
+							<!-- _________________________________________________________________________________________________________________ -->
+							<section id="description">
+								<header><h2>Property Description</h2></header>
+								<p>
+									{{ advert.advertDescription }}
+								</p>
+							</section><!-- /#description -->
+							<!-- _________________________________________________________________________________________________________________ -->
+							<section id="property-features">
+								<header><h2>Property Features</h2></header>
+								<ul class="list-unstyled property-features-list">
+									{% if advert.featureFurnished %}<li>Meublé</li>{% endif %}
+									{% if advert.featureGardenTerrace %}<li>Jardin</li>{% endif %}
+									{% if advert.featureParcking %}<li>Parcking</li>{% endif %}
+									{% if advert.featureTv %}<li>Tv</li>{% endif %}
+									{% if advert.featureWifi %}<li>WIFI</li>{% endif %}
+									{% if advert.factureFree %}<li>Facture Free</li>{% endif %}
+								</ul>
+							</section><!-- /#property-features -->
+													<!-- _________________________________________________________________________________________________________________ -->
+													<section id="property-map">
+														<header><h2>Map</h2></header>
+														<div class="property-detail-map-wrapper">
+															<div class="property-detail-map" id="property-detail-map"></div>
+														</div>
+													</section><!-- /#property-map -->
+													<!-- _________________________________________________________________________________________________________________ -->
+
+
+
+
+
+
+
+
+
+							<!-- _________________________________________________________________________________________________________________ -->
+							<section id="rooms-info">
+								<header><h2>Informations à propos les chambres</h2></header>
+								{% for room in advert.roomsInformations %}
+									<div class="col-md-5 col-sm-6 {% if loop.index is even %}col-md-offset-2{% endif %}" style="border-style: solid;border-width: 1px;border-color: #dddddd; border-radius:10px; margin-bottom: 10px">
+										<header><h3>Chambre #{{ loop.index }}</h3></header>
+										<dl>
+											<dt>Type</dt>
+											<dd>{{ room.size.name }}</dd>
+											<dt>Suite:</dt>
+											<dd>{% if room.suite %}<span class="glyphicon glyphicon-ok" style="color: green;"></span>{% else %}<span class="glyphicon glyphicon-remove" style="color: red;">{% endif %}</dd>
+										</dl>
+									</div>
+								{% endfor %}
+							</section><!-- /#description -->
+							<!-- _________________________________________________________________________________________________________________ -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+												</div><!-- /.col-md-8 -->
+												<!-- _________________________________________________________________________________________________________________ -->
+
+												<div class="col-md-12 col-sm-12">
+													<section id="contact-agent">
+														<header><h2>Contact Agent</h2></header>
+														<div class="row">
+															<section class="agent-form">
+																<div class="col-md-12 col-sm-12">
+																	<aside class="agent-info clearfix" style="padding-left: 0px !important;">
+																		<div class="agent-contact-info">
+																			<h3>{{ advert.advertiser.firstName }} {{ advert.advertiser.lastName }}</h3>
+																			<dl>
+																				<dt>Phone:</dt>
+																				<dd>+216 - {{ advert.advertiserPhone }}</dd>
+																				<dt>Email:</dt>
+																				<dd><a href="mailto:#">{{ advert.advertiser.email }}</a></dd>
+																			</dl>
+																			<hr style="border-top: dashed 1px #BBBBBB;margin-bottom: 20px;margin-top: 20px;" />
+																		</div>
+																	</aside><!-- /.agent-info -->
+																</div><!-- /.col-md-7 -->
+																<div class="col-md-12 col-sm-12">
+																	<div class="agent-form">
+																		<form role="form" id="form-contact-agent" method="post" class="clearfix">
+																			<div class="form-group">
+																				<label for="form-contact-agent-name">Your Name<em>*</em></label>
+																				<input type="text" class="form-control" id="form-contact-agent-name" name="form-contact-agent-name" required="">
+																			</div><!-- /.form-group -->
+																			<div class="form-group">
+																				<label for="form-contact-agent-email">Your Email<em>*</em></label>
+																				<input type="email" class="form-control" id="form-contact-agent-email" name="form-contact-agent-email" required="">
+																			</div><!-- /.form-group -->
+																			<div class="form-group">
+																				<label for="form-contact-agent-message">Your Message<em>*</em></label>
+																				<textarea class="form-control" id="form-contact-agent-message" rows="4" name="form-contact-agent-message" required=""></textarea>
+																			</div><!-- /.form-group -->
+																			<div class="form-group">
+																				<button type="submit" class="btn pull-right btn-default" id="form-contact-agent-submit">Send a Message</button>
+																			</div><!-- /.form-group -->
+																			<div id="form-contact-agent-status"></div>
+																		</form><!-- /#form-contact -->
+																	</div><!-- /.agent-form -->
+																</div><!-- /.col-md-5 -->
+															</section><!-- /.agent-form -->
+														</div><!-- /.row -->
+													</section><!-- /#contact-agent -->
+												</div>
+												<!-- _________________________________________________________________________________________________________________ -->
+											</div><!-- /.row -->
+										</section><!-- /#property-detail -->
+									</div><!-- /.col-md-9 -->
+									<!-- end Property Detail Content -->
+									<!-- _________________________________________________________________________________________________________________ -->
+									<!-- sidebar -->
+									<div class="col-md-3 col-sm-3">
+										<section id="sidebar">
+											{% include 'PfaMainBundle:Search:searchWidget.html.twig' %}
+											{{ render(controller('PfaMainBundle:Widget:featuredAdverts', { 'limit': 3, 'type': 'WholeProperty' })) }}
+											{{ render(controller('PfaMainBundle:Widget:similarAdverts', { 'limit': 3, 'type': 'WholeProperty', 'id': advert.id })) }}
+										</section><!-- /#sidebar -->
+									</div><!-- /.col-md-3 -->
+									<!-- end Sidebar -->
+									<!-- _________________________________________________________________________________________________________________ -->
+								</div><!-- /.row -->
+							</div><!-- /.container -->
+							<!-- _________________________________________________________________________________________________________________ -->
+						{% endblock %}
+						{% block javascripts %}
+							{{ parent() }}
+							<!-- _________________________________________________________________________________________________________________ -->
+							<script type="text/javascript" src="{{ asset('assets/js/infobox.js') }}"></script>
+							<script type="text/javascript" src="{{ asset('assets/js/jquery.placeholder.js') }}"></script>
+							<script type="text/javascript" src="{{ asset('assets/js/jquery.raty.min.js') }}"></script>
+							<script type="text/javascript" src="{{ asset('assets/js/jshashtable-2.1_src.js') }}"></script>
+							<script type="text/javascript" src="{{ asset('assets/js/tmpl.js') }}"></script>
+							<script type="text/javascript" src="{{ asset('assets/js/jquery.dependClass-0.1.js') }}"></script>
+							<script type="text/javascript" src="{{ asset('assets/js/draggable-0.1.js') }}"></script>
+							<script type="text/javascript" src="{{ asset('assets/js/jquery.fitvids.js') }}"></script>
+							<script type="text/javascript" src="{{ asset('assets/js/jquery.slider.js') }}"></script>
+							<!-- _________________________________________________________________________________________________________________ -->
+							<script type="text/javascript">
+								var lat = {{ advert.gmapLat }};
+								var lng = {{ advert.gmapLng }};
+								var propertyType = "{{ advert.propertyType.name }}";
+								///////////////////////////////////////////////////////////////////////////////////////////////////////
+								switch (propertyType) {
+									case "Appartemant":
+										var icon = "{{ asset('assets/img/property-types/apartment.png') }}";
+										break;
+									case "Villa":
+										var icon = "{{ asset('assets/img/property-types/cottage.png') }}";
+										break;
+									case "Studio":
+										var icon = "{{ asset('assets/img/property-types/warehouse.png') }}";
+										break;
+									default:
+										var icon = "{{ asset('assets/img/property-types/empty.png') }}";
+								}
+								///////////////////////////////////////////////////////////////////////////////////////////////////////
+								google.maps.event.addDomListener(window, 'load', initMap(lat, lng, icon));
+								///////////////////////////////////////////////////////////////////////////////////////////////////////
+								function initMap(lat, lng, icon) {
+									var subtractPosition = 0;
+									var mapWrapper = $('#property-detail-map.float');
+									if (document.documentElement.clientWidth > 1200) {
+										subtractPosition = 0.013;
+									}
+									if (document.documentElement.clientWidth < 1199) {
+										subtractPosition = 0.006;
+									}
+									if (document.documentElement.clientWidth < 979) {
+										subtractPosition = 0.001;
+									}
+									if (document.documentElement.clientWidth < 767) {
+										subtractPosition = 0;
+									}
+									var mapCenter = new google.maps.LatLng(lat,lng);
+									if ( $("#property-detail-map").hasClass("float") ) {
+										mapCenter = new google.maps.LatLng(lat,lng - subtractPosition);
+										mapWrapper.css('width', mapWrapper.width() + mapWrapper.offset().left )
+									}
+									var mapOptions = {
+										zoom: 10,
+										center: mapCenter,
+										disableDefaultUI: false,
+										scrollwheel: false,
+										styles: mapStyles
+									};
+									var mapElement = document.getElementById('property-detail-map');
+									var map = new google.maps.Map(mapElement, mapOptions);
+									var pictureLabel = document.createElement("img");
+									pictureLabel.src = icon;
+									var markerPosition = new google.maps.LatLng(lat,lng);
+									var marker = new MarkerWithLabel({
+										position: markerPosition,
+										map: map,
+										icon: "{{ asset('assets/img/marker.png') }}",
+										labelContent: pictureLabel,
+										labelAnchor: new google.maps.Point(50, 0),
+										labelClass: "marker-style"
+									});
+								}
+								///////////////////////////////////////////////////////////////////////////////////////////////////////
+								$(window).load(function(){
+									initializeOwl(false);
+								});
+							</script>
+						{% endblock %}

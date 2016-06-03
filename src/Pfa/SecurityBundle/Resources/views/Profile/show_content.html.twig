@@ -1,0 +1,293 @@
+{% extends 'FOSUserBundle::profileLayout.html.twig' %}
+
+{% block subMenuProfile %}
+	<ul>
+		<li {% if type is defined %}{% if type is same as('bienentier') %}class="active"{% endif %}{% endif %}>
+			<a href="{{ path('fos_user_profile_show', { 'page': '1', 'type': 'bienentier' }) }}">Biens Entier</a>
+		</li>
+
+		<li {% if type is defined %}{% if type is same as('collocation') %}class="active"{% endif %}{% endif %}>
+			<a href="{{ path('fos_user_profile_show', { 'page': '1', 'type': 'collocation' }) }}">Collocation</a>
+		</li>
+		
+		<li {% if type is defined %}{% if type is same as('chambre') %}class="active"{% endif %}{% endif %}>
+			<a href="{{ path('fos_user_profile_show', { 'page': '1', 'type': 'chambre' }) }}">Chambre</a>
+		</li>
+
+		<li {% if type is defined %}{% if type is same as('chercheur') %}class="active"{% endif %}{% endif %}>
+			<a href="{{ path('fos_user_profile_show', { 'page': '1', 'type': 'chercheur' }) }}">Chercheur Du Collocation</a>
+		</li>
+	</ul>
+{% endblock %}
+
+{% block subBody %}
+	<section id="my-properties">
+		<header><h1>Mes Annonces</h1></header>
+		<div class="my-properties">
+			<div class="table-responsive">
+				<table class="table">
+					<thead>
+						<tr>
+							<th>Annonce</th>
+							<th></th>
+							<th>Date d'ajout</th>
+							<th>Views</th>
+							<th>Actions</th>
+						</tr>
+					</thead>
+					<tbody>
+						{% set empty = false %}
+							{% if type is same as('bienentier') %}
+								{% for advert in adverts %}
+									<tr>
+										<td class="image">
+											{% for photo in advert.album.photos %}
+												{% if loop.first %}
+													<a href="{{ path('show_whole_property', { 'id': advert.id }) }}"><img alt="" src="{{ ('/uploads/photos/' ~ photo.path) | imagine_filter('thumb') }}">
+													{% endif %}
+												{% endfor %}
+											</td>
+											<td><div class="inner">
+												<a href="{{ path('show_whole_property', { 'id': advert.id }) }}"><h2>{{ advert.advertTitle }}</h2></a>
+												<figure>{{ advert.street }}</figure>
+												<div class="tag price">TND {{ advert.price }}</div>
+											</div>
+										</td>
+										<td>{{ advert.postDate|date("d/m/Y") }}</td>
+										<td>{{ advert.views }}</td>
+
+										<td class="actions">
+											<a href="{{ path('edit_whole_property', { 'id': advert.id }) }}" class="edit"><i class="fa fa-pencil"></i></a>
+											{% if admin %}
+												{% if advert.featured %}
+													<a id="{{ 'feat' ~ loop.index }}"  class="edit"><i class="fa fa-star"></i></a>
+													{% else %}
+													<a id="{{ 'feat' ~ loop.index }}"  class="edit"><i class="fa fa-star-o"></i></a>
+												{% endif %}
+											{% endif %}
+											<a id="{{ 'fav' ~ loop.index }}"  class="edit"><i class="fa fa-heart-o"></i></a>
+
+											<a id="{{ 'rem' ~ loop.index }}" ><i class="delete fa fa-trash-o"></i></a>
+										</td>
+									</tr>
+									{% set idRem = '#rem' ~ loop.index %}
+										{% set idFeat = '#feat' ~ loop.index %}
+											{% set idFav = '#fav' ~ loop.index %}
+
+												<script type="text/javascript">
+													$(document).ready(function() { 
+														$(document).ajaxStop($.unblockUI);
+
+														$("{{ idRem }}").click(function(event) {
+															$.blockUI({ message: '<img src="{{ asset("assets/img/loading.gif") }}" /> Supression En Cours...' });
+															$.get("{{ path('delete_whole_property', { 'id': advert.id }) }}",
+																function(response){
+
+																	if(response.code == 100 && response.success){
+																		$("{{ idRem }}").parent().parent().remove();
+																	}
+																}, "json");
+														});
+
+														$("{{ idFeat }}").click(function(event) {
+															$.blockUI({ message: '<img src="{{ asset("assets/img/loading.gif") }}" /> En Cours...' });
+															$.get("{{ path('feature_whole_property', { 'id': advert.id }) }}",
+																function(response){
+
+																	if(response.code == 100 && response.success){
+																		if (response.mode == 1) {
+																			$("{{ idFeat }}").find('i').removeClass('fa-star-o').addClass('fa-star');
+																		} else if (response.mode == 0) {
+																			$("{{ idFeat }}").find('i').removeClass('fa-star').addClass('fa-star-o');
+																		}
+																	}
+																}, "json");
+														});
+													});
+												</script>
+												{% else %}
+												{% set empty = true %}
+													<tr>
+														<td colspan="6" style="text-align: center;">
+															Aucune annonce trouvée :(
+														</td>
+													</tr>
+												{% endfor %}
+												{% elseif type is same as('collocation') or type is same as('chambre') %}
+												{% for advert in adverts %}
+													<tr>
+														<td class="image">
+															{% for photo in advert.album.photos %}
+																{% if loop.first %}
+																	<a href="{{ path('show_room', { 'id': advert.id }) }}"><img alt="" src="{{ ('/uploads/photos/' ~ photo.path) | imagine_filter('thumb') }}">
+																	{% endif %}
+																{% endfor %}
+															</td>
+															<td><div class="inner">
+																<a href="{{ path('show_room', { 'id': advert.id }) }}"><h2>{{ advert.advertTitle }}</h2></a>
+																<figure>{{ advert.street }}</figure>
+																<div class="tag price">{{ advert.numberOfRoomsToRent }} Chambres disponible</div>
+															</div>
+														</td>
+														<td>{{ advert.postDate|date("d/m/Y") }}</td>
+														<td>{{ advert.views }}</td>
+
+
+
+														<td class="actions">
+															<a href="{{ path('edit_room', { 'id': advert.id }) }}" class="edit"><i class="fa fa-pencil"></i></a>
+
+
+															{% if admin %}
+																{% if advert.featured %}
+																	<a id="{{ 'feat' ~ loop.index }}"  class="edit"><i class="fa fa-star"></i></a>
+																	{% else %}
+																	<a id="{{ 'feat' ~ loop.index }}"  class="edit"><i class="fa fa-star-o"></i></a>
+																{% endif %}
+															{% endif %}
+															<a id="{{ 'fav' ~ loop.index }}"  class="edit"><i class="fa fa-heart-o"></i></a>
+															<a id="{{ 'rem' ~ loop.index }}" ><i class="delete fa fa-trash-o"></i></a>
+
+														</td>
+
+
+													</tr>
+													{% set idRem = '#rem' ~ loop.index %}
+														{% set idFeat = '#feat' ~ loop.index %}
+															{% set idFav = '#fav' ~ loop.index %}
+
+																<script type="text/javascript">
+																	$(document).ready(function() { 
+																		$(document).ajaxStop($.unblockUI);
+
+																		$("{{ idRem }}").click(function(event) {
+																			$.blockUI({ message: '<img src="{{ asset("assets/img/loading.gif") }}" /> Supression En Cours...' });
+																			$.get("{{ path('delete_room', { 'id': advert.id }) }}",
+																				function(response){
+
+																					if(response.code == 100 && response.success){
+																						$("{{ idRem }}").parent().parent().remove();
+																					}
+																				}, "json");
+																		});
+
+																		$("{{ idFeat }}").click(function(event) {
+																			$.blockUI({ message: '<img src="{{ asset("assets/img/loading.gif") }}" /> En Cours...' });
+																			$.get("{{ path('feature_room', { 'id': advert.id }) }}",
+																				function(response){
+
+																					if(response.code == 100 && response.success){
+																						if (response.mode == 1) {
+																							$("{{ idFeat }}").find('i').removeClass('fa-star-o').addClass('fa-star');
+																						} else if (response.mode == 0) {
+																							$("{{ idFeat }}").find('i').removeClass('fa-star').addClass('fa-star-o');
+																						}
+																					}
+																				}, "json");
+																		});
+																	});
+																</script>
+																{% else %}
+																{% set empty = true %}
+																	<tr>
+																		<td colspan="6" style="text-align: center;">
+																			Aucune annonce trouvée :(
+																		</td>
+																	</tr>
+																{% endfor %}
+																{% elseif type is same as('chercheur') %}
+																{% for advert in adverts %}
+																	<tr>
+																		<td class="image">
+																			{% for photo in advert.album.photos %}
+																				{% if loop.first %}
+																					<a href="{{ path('show_room_seeker', { 'id': advert.id }) }}"><img alt="" src="{{ ('/uploads/photos/' ~ photo.path) | imagine_filter('thumb') }}">
+																					{% endif %}
+																				{% endfor %}
+																			</td>
+																			<td><div class="inner">
+																				<a href="{{ path('show_room_seeker', { 'id': advert.id }) }}"><h2>{{ advert.advertTitle }}</h2></a>
+																				<figure>Cherche à {{ advert.town.name }}</figure>
+																				<div class="tag price">TND {{ advert.budget }}</div>
+																			</div>
+																		</td>
+																		<td>{{ advert.postDate|date("d/m/Y") }}</td>
+																		<td>{{ advert.views }}</td>
+																		<td class="actions">
+																			<a href="{{ path('edit_room_seeker', { 'id': advert.id }) }}" class="edit"><i class="fa fa-pencil"></i></a>
+																			{% if admin %}
+																				{% if advert.featured %}
+																					<a id="{{ 'feat' ~ loop.index }}"  class="edit"><i class="fa fa-star"></i></a>
+																					{% else %}
+																					<a id="{{ 'feat' ~ loop.index }}"  class="edit"><i class="fa fa-star-o"></i></a>
+																				{% endif %}
+																			{% endif %}
+																			<a {{ 'fav' ~ loop.index }}  class="edit"><i class="fa fa-heart-o"></i></a>
+																			<a {{ 'rem' ~ loop.index }} ><i class="delete fa fa-trash-o"></i></a>
+																		</td>
+																	</tr>
+
+																	{% set idRem = '#rem' ~ loop.index %}
+																		{% set idFeat = '#feat' ~ loop.index %}
+																			{% set idFav = '#fav' ~ loop.index %}
+
+																				<script type="text/javascript">
+																					$(document).ready(function() { 
+																						$(document).ajaxStop($.unblockUI);
+
+																						$("{{ idRem }}").click(function(event) {
+																							$.blockUI({ message: '<img src="{{ asset("assets/img/loading.gif") }}" /> Supression En Cours...' });
+																							$.get("{{ path('delete_room_seeker', { 'id': advert.id }) }}",
+																								function(response){
+
+																									if(response.code == 100 && response.success){
+																										$("{{ idRem }}").parent().parent().remove();
+																									}
+																								}, "json");
+																						});
+
+																						$("{{ idFeat }}").click(function(event) {
+																							$.blockUI({ message: '<img src="{{ asset("assets/img/loading.gif") }}" /> En Cours...' });
+																							$.get("{{ path('feature_room_seeker', { 'id': advert.id }) }}",
+																								function(response){
+
+																									if(response.code == 100 && response.success){
+																										if (response.mode == 1) {
+																											$("{{ idFeat }}").find('i').removeClass('fa-star-o').addClass('fa-star');
+																										} else if (response.mode == 0) {
+																											$("{{ idFeat }}").find('i').removeClass('fa-star').addClass('fa-star-o');
+																										}
+																									}
+																								}, "json");
+																						});
+																					});
+																				</script>
+																				{% else %}
+																				{% set empty = true %}
+																					<tr>
+																						<td colspan="6" style="text-align: center;">
+																							Aucune annonce trouvée :(
+																						</td>
+																					</tr>
+																				{% endfor %}
+																			{% endif %}
+																		</tbody>
+																	</table>
+																</div><!-- /.table-responsive -->
+																{% if not empty %}
+																	<div class="center">
+																		<ul class="pagination">
+																			{% for i in 1..nbPages %}
+																				{% if i == page %}
+																					<li class="active"><a href="{{ path('fos_user_profile_show', { 'page': i, 'type': type }) }}">{{ i }}</a></li>
+																					{% else %}
+																					<li><a href="{{ path('fos_user_profile_show', { 'page': i, 'type': type }) }}">{{ i }}</a></li>
+																				{% endif %}
+																			{% endfor %}
+																		</ul><!-- /.pagination-->
+																	</div><!-- /.center-->
+																{% endif %}
+															</div><!-- /.my-properties -->
+														</section><!-- /#my-properties -->
+														<!-- end My Properties -->
+													{% endblock %}
